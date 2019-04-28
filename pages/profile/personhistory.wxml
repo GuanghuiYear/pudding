@@ -1,0 +1,54 @@
+
+<view>
+	<view class="weui-cells">
+		<view class="weui-cell">
+			<text class="weui-label" style="width: 200px;">查看用户</text>
+		</view>
+		<view class="weui-cell">
+			<text class="weui-label" style='color:gray;'>{{uname}}</text>
+		</view>							
+	</view>
+	<view style="height: 20px; background: #CCCCCC09;"> </view>
+	<view class="weui-cells">
+		<view class="weui-cell">
+			<text class="weui-label" style="width: 200px;">选择日期</text>
+		</view>
+		<view class="weui-cell">
+			<text class="weui-label" >起始时间</text>
+			<view class="weui-cell__ft" style="margin-left: 20px;" >
+				<picker mode="date" value="{{sdate}}" start="{{minsd}}" end="{{maxsd}}" bindchange="bindSdateChange">
+					<view>{{sdate}}</view>		
+				</picker>
+			</view>
+      <!-- start="09:01" end="21:01" -->
+			<view class="weui-cell__ft" style="margin-left: 20px;" >
+				<picker mode="time" value="{{stime}}" start="{{minst}}" end="{{maxst}}"  bindchange="bindStimeChange">
+					<view>{{stime}}</view>	
+				</picker>
+			</view>
+		</view>
+
+		<view class="weui-cell">
+			<text class="weui-label" >结束时间</text>
+			<view class="weui-cell__ft" style="margin-left: 20px;" >
+				<picker mode="date" value="{{edate}}" start="{{mined}}" end="{{maxed}}" bindchange="bindEdateChange">
+					<view>{{edate}}</view>		
+				</picker>
+			</view>
+
+			<view class="weui-cell__ft" style="margin-left: 20px;" >
+				<picker mode="time" value="{{etime}}" start="{{minet}}" end="{{maxet}}" bindchange="bindEtimeChange">
+					<view>{{etime}}</view>	
+				</picker>
+			</view>
+		</view>			
+									
+	</view>
+
+  <button class="weui-btn" type="primary" style='margin-left:20px; margin-right:20px; margin-top:20px;' bindtap='submitTapHandler'>提交</button>
+
+</view>
+
+
+
+

@@ -1,0 +1,53 @@
+<!--pages/railsetting/radius.wxml-->
+
+<view>
+	<!--  -->
+	<view style="padding-top:20px; padding-bottom: 0px; padding-left: 15px;">
+		<text style="color: #333333;" >设置围栏距离</text>	
+	</view>
+	
+	<view class="page__bd">
+		<view class="weui-cells">
+
+			<view class="weui-cell weui-cell_input" style="padding:15px;">
+				<view class="weui-label" style="width:200px;">
+					<text class="weui-label">设置半径</text>
+				</view>
+				<view class="weui-cell__ft">
+					 <input class="weui-input" type="number" placeholder="请输入" style="width:120px;" value="{{fixRadius}}" bindinput="inputFixRadiusHandler"/>
+				</view>
+				<view class="weui-cell__ft">
+					<text style="color: black;">m</text>
+				</view>
+			</view>	
+
+			<view class="weui-cell weui-cell_switch" style="padding:15px;">
+				<view class="weui-cell__bd">立刻启用该围栏</view>
+        <view class="weui-cell__ft">
+          <switch checked />
+        </view>
+			</view>  
+
+		</view>
+	</view>
+
+	<view class="hlayout-btn-container">
+		<button type="primary" bindtap="flowModelSelectHandler"
+				class="rail-raduis-btn" style="background: #22C3C7;">
+			<view>
+				<view style="font-size: 14px;">以自己为中心</view><br/>
+				<view style="font-size: 12px;">(围栏跟随)</view>
+			</view>
+		</button>
+
+		<button type="primary" bindtap="placeModelSelectHandler"
+				class="rail-raduis-btn" style="background: #22C789;">
+			<view style="font-size: 14px;">选择制定中心</view><br/>
+			<view style="font-size: 12px;">(围栏固定)</view>
+		</button>
+	</view>
+
+</view> 	
+
+
+ 

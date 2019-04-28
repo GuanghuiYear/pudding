@@ -1,0 +1,97 @@
+/* pages/jfxbdidx/idx.wxss */
+/* AMap style config: */
+.map_container{
+  position: absolute;
+  top: 0;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+}
+.map{
+  width: 100%;
+  height: 100%;
+}
+
+.cover-image {
+  width: 50px;
+  height: 50px;
+}
+ 
+.titlepanel{
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  top: 15px;
+  height: 64px;
+  background: #ffffffcb;
+  border-radius: 15px;
+  /*display: flex;*/
+}
+
+.mgctrl-panel{
+  position: absolute;
+  background: red;
+}
+
+.mgctrl{
+  position: absolute;
+  width: 48px;
+  height: 48px;
+}
+
+.titleicon{
+  width: 44px;
+  height: 44px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 15px;
+  position: absolute;
+}
+
+.titlename{
+  left: 66px;
+  top: 7px;
+  font-size: 22px;
+  color: #202020;
+  width: 100px;
+  position: absolute;
+  font-weight: 800;
+}
+
+.titlegroup{
+  top: 15px;
+  right: 15px;
+  position: absolute;
+  width: 150px;
+  font-size: 14px;
+  text-align: right;
+  color: #4189FF;
+}
+
+.groupinfo{
+  /*position: absolute;*/
+  margin-left: 66px;
+  font-size: 12px;
+  margin-top: 37px;
+  color: #666666;
+}
+
+.mapcontrol{
+  position: absolute;
+  /* width: 36px; */
+  right: 15px;
+  bottom: 134px;
+  border-radius: 8px;
+  background: #ffffffcb;
+  padding-top: 4px;
+  padding-right: 4px;
+  padding-left: 4px;
+  padding-bottom: 4px;
+}
+
+.mapctrlitem{
+  width: 23px;
+  height: 23px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}

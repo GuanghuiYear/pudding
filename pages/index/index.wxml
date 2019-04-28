@@ -1,0 +1,32 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权布丁登陆 </button>
+    <block wx:else>
+      <!-- bindtap="userAvatarTapHandler" -->
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" bindtap="userAvatarTapHandler" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="weui-cell " hidden="{{showBindMobile}}" style="margin-top: 40px;">
+    <view class="weui-cell__bd">
+      <input id="iptMobileNo" placeholder="请输入绑定手机号" class="weui-cell__bd" value="{{mobile}}" bindinput="iptMobleNoInputHandler" />
+    </view>
+    <view class="weui-cell__ft">
+      <button type="button" class="weui-btn" bindtap="reqCodeHandler">获取验证码</button>
+    </view>
+  </view>
+  <view class="weui-cell" hidden="{{showBindMobile}}">
+    <view class="weui-cell__bd">
+      <input id="iptCode" placeholder="请输入验证码" class="weui-cell__bd" value="{{vCode}}" bindinput="iptCodeInput" />
+    </view>
+    <view class="weui-cell__ft">
+      <button type="button" class="weui-btn" bindtap="bindSubmitHandler">提交并绑定</button>
+    </view>
+  </view>
+
+
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>

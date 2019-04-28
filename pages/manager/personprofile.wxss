@@ -1,0 +1,27 @@
+/* pages/manager/personprofile.wxss */ 
+@import "../../common/lib/weui.wxss";
+
+.p-title{
+  background: white;
+}
+
+.p-panel{
+  /* position: relative;
+  display: inline-block; */
+  /* box-shadow: 0px 2px 5px 5px rgb(241, 239, 239); */
+  margin: 10px 15px 10px 15px;
+  height: 100px;
+}
+
+.pp-cells{
+  position: relative;
+  margin-top: 1.17647059em;
+  background-color: #FFFFFF;
+  line-height: 1.41176471;
+  font-size: 14px;
+}
+
+page{
+  height:100%;
+  background-color:#EEEEEE;
+}

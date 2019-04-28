@@ -1,0 +1,32 @@
+
+Page({
+  data: {
+
+  },
+
+  logoutTapHandler:function(evt) {
+    let backUrl = getApp().globalData.baseUrl
+    getApp().globalData = {baseUrl: backUrl}
+    wx.removeStorageSync("pudding")
+    wx.removeStorageSync("user")
+    wx.removeStorageSync("userInfo")
+    wx.removeStorageSync("lastWatchingGroupId")
+    wx.redirectTo({
+      url: '../../pages/index/index',
+    })
+  },
+
+  onLoad: function () {
+    wx.request({
+      url: 'http://image.yuanchanxidi.com/aa3d.jpg',
+      header: {
+        'Referer':'https://www.baidu.com'
+      },
+      // url:"https://img10.360buyimg.com/imgzone/jfs/t3127/127/1601774396/436691/3223ee55/57d0d43fN452553f8.jpg",
+      method:'GET',
+      success: function(res){
+        console.log(res);
+      }
+    })
+  }
+})

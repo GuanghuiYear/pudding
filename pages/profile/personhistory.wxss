@@ -1,0 +1,3 @@
+/* pages/profile/personhistory.wxss */
+
+@import "../../common/lib/weui.wxss"

@@ -1,0 +1,37 @@
+<view class="map_container">
+  <!-- bindregionchange='regionchangeHandler' -->
+  <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" circles="{{circles}}" scale='14' include-points='{{inPoints}}' bindmarkertap='markerTouchHandler' bindcallouttap='markerTouchHandler' show-location="true" markers='{{markers}}'>
+
+    <cover-view class='titlepanel'>
+      <cover-image class="titleicon" src="{{userIcon}}" />
+      <cover-view class='titlename'>{{nickName}}</cover-view>
+      <cover-view class='titlegroup' bindtap='choiseGroup' decode='true'>{{selGroup.name}} > </cover-view>
+      <!-- 关联用户12个 在线12个 区域内12个 区域外12个 -->
+      <cover-view class="groupinfo"></cover-view>
+    </cover-view>
+
+    <!--     <cover-view style="position:absolute;left:{{railCenterX}};top:{{railCenterY}};" >
+      <cover-image id='centerMarker' class='cover-image' src='/images/location.png'></cover-image>
+      <cover-view></cover-view>
+    </cover-view> -->
+
+    <cover-view class='mapcontrol'>
+      <cover-image id='mpCtrlRefresh' class="mapctrlitem" bindtap='ctrlRefreshTapHandler' src="/images/index_refresh_nomal_highlight@2x.png" />
+      <cover-image id='mpCtrlPlace' class="mapctrlitem" bindtap='ctrlPlaceTapHandler' src="/images/index_place_nomal_highlight@2x.png" />
+      <cover-image id='mpCtrlRail' class="mapctrlitem" src="/images/index_enclosure_nomal_highlight@2x.png" />
+      <cover-image class="mapctrlitem" id='crutLocation' bindtap='showCrtLocation' src="/images/index_self_highlight@2x.png" />
+    </cover-view>
+
+    <!-- <cover-image src="/images/index_set_trajectory@3x.png" 
+      class="mgctrl" animation="{{mgctrlAnimates[0]}}"
+      style="bottom:{{mgctrlPositions[0].btm}}px; left:{{mgctrlPositions[0].lt}}px;" /> -->
+
+    <cover-image src="/images/index_set_trajectory@3x.png" class="mgctrl" style="bottom:{{mgctrlPositions[0].btm}}px; left:{{mgctrlPositions[0].lt}}px;" />
+    <cover-image src="/images/index_set_pattern@3x.png" class="mgctrl" bindtap="patternSettingHandler" style="bottom:{{mgctrlPositions[1].btm}}px; left:{{mgctrlPositions[1].lt}}px;" />
+    <!-- <cover-image src="/images/index_set@3x.png"
+      class="mgctrl"
+      style="bottom:{{mgctrlPositions[2].btm}}px; left:{{mgctrlPositions[2].lt}}px;"/> -->
+    <cover-image src="/images/index_set_enclosure@3x.png" class="mgctrl" bindtap="railSettingHandler" style="bottom:{{mgctrlPositions[3].btm}}px; left:{{mgctrlPositions[3].lt}}px;" />
+
+  </map>
+</view>

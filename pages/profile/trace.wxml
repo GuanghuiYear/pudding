@@ -1,0 +1,10 @@
+
+<view class='map_container'>
+<!-- polyline="{{plypath1}}" -->
+  <map class='map'
+  id="traceMap" 
+    markers="{{ms}}"
+    include-points="{{inPoint}}"
+    polyline="{{plypath1}}"
+    />
+</view>

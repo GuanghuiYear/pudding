@@ -1,0 +1,17 @@
+/* pages/profile/trace.wxss */
+
+
+
+.map_container{
+  position: absolute;
+  top: 0;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+}
+.map{
+  width: 100%;
+  height: 100%;
+}
+
+@import "../../common/lib/weui.wxss"

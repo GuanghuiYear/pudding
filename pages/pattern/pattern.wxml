@@ -1,0 +1,14 @@
+<form bindsubmit="patternSetting">
+  <view class="section section_gap bgw">
+    <view class="section__title">实时选择模式</view>
+    <radio-group name="minute" class="flex-column item-list">
+      <label wx:for="{{minute_list}}" wx-for-item="{{item}}" wx:key='{{index}}' class="flex-row item-cells item-line radiostyle">
+        <radio value="{{item.option}}" class="item-radio"/> {{item.value}}分钟
+      </label>
+    </radio-group>
+  </view>
+  <view class="btn-area flex-row">
+    <button bindtap='goback' class="btn btn-reset">返回</button>
+    <button form-type="submit" class="btn btn-bggreen btn-reset">设置模式</button>
+  </view>
+</form>

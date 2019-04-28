@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/pattern/pattern",
+    "pages/manager/personprofile",
+    "pages/jfxbdidx/idx",
+    "pages/profile/index",
+    "pages/railsetting/setcenter",
+    "pages/railsetting/radius",
+    "pages/logs/logs",
+    "pages/manager/index",
+    "pages/choisegroup/choisegroup",
+    "pages/profile/personhistory",
+    "pages/profile/trace"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/jfxbdidx/idx",
+        "text": "地图",
+        "iconPath": "images/index_map_nomal@2x.png",
+        "selectedIconPath": "images/index_map_selected@2x.png"
+      },
+      {
+        "pagePath": "pages/manager/index",
+        "text": "管理",
+        "iconPath": "images/index_manage_nomal@2x.png",
+        "selectedIconPath": "images/index_manage_selected@2x.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "images/index_my_nomal@2x.png",
+        "selectedIconPath": "images/index_my_selected@2x.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序显示您所在团队的当前位置"
+    }
+  }
+}

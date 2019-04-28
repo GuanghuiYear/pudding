@@ -1,0 +1,33 @@
+<!--pages/manager/personprofile.wxml-->
+<view>
+
+  <view class="p-title">
+    <view style='background:white; width:100%; padding-left:15px; padding-top:10px;'>
+      <view style='background:white; box-shadow: 0px 2px 5px 5px rgb(241, 239, 239); display:-webkit-box; margin-right:30px;'>
+        <view style=' width: 220px; -webkit-box-flex: 1; -webkit-flex: 1; flex:1 '>
+          <view style='padding-top:5px; padding-left:7px;'> 张三 </view>
+          <view style='margin-top:30px; margin-left:10px; font-size:14px; color:gray; padding-bottom:10px;'>#打不死楼下</view>
+        </view>
+        <view style='-webkit-box-flex: 2; -webkit-flex: 2; flex: 2; height:54px;'>
+          <view style='width:44px; height:44px; background: #21C789; margin-top: 15px; border-radius: 22px;'>
+          </view>
+        </view>
+      </view>
+
+      <view class='pp-cells'>
+        <view class='weui-cell'>
+          <view class='weui-cell__bd'>
+            <view style="font-size: 12px; color: gray; "> 绑定手机</view>
+            <view> 18616601589 </view>
+          </view>
+        </view>
+        <view class='weui-cell'>
+          <view class='weui-cell__bd'>
+            <view style="font-size: 12px; color: gray; "> 备注</view>
+            <view> 明教教主 </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  </view>

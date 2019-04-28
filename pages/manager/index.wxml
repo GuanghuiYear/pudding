@@ -1,0 +1,27 @@
+<!--pages/manager/index.wxml-->
+
+<view class="bd-page">
+	<view class="bd-cells"> 
+		<block wx:for="{{members}}" wx:key="mid" wx:for-item="m">
+			<view class="bd-cell" bindtap='itemTouch'> 
+				<view class="weui-cell__bd" style="display: block;">
+					<view id="one-line" style="display: flex;">
+						<view>{{m.username}}</view>
+						<view wx:if="{{m.is_out}}" class='safe'>求救</view>
+					</view>
+					<view class="weui-media-box__desc" style='margin-top:5px;'>已绑定 {{m.distance}}米</view>
+				</view>
+				<view class="weui-cell__ft" >
+					<view class="pd-1l-ctrl" >
+						<image class="pd-1l-ctrl-item" src='/images/admin_phone@2x.png' 
+              bindtap='phoneCallHandler' data-mobile="{{m.mobile}}" ></image> 
+              <!-- data-mid='{{}}' -->
+						<image class="pd-1l-ctrl-item" src='/images/admin_details@2x.png'></image>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+
+  <view wx:if="{{isEmptyPage}}" style='margin:20px;'>{{isEmptyPageDesc}}</view>
+</view>

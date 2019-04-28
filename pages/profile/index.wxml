@@ -1,0 +1,11 @@
+
+
+<view >
+  <view id='vtitle' style='margin-top:0px; margin-left:0px; margin-right:0px; height:150px;'>
+    <image style='background:red; width:100%; height:100%;' src='/images/my_banner3x.png'></image>
+  </view>
+
+  <view style='margin-left:20px; margin-right:20px; margin-top:20px;'>
+    <button class="weui-btn" type="warn" bindtap='logoutTapHandler'>退出登陆</button>
+  </view>
+</view>
