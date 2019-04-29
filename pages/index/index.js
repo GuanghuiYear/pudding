@@ -18,6 +18,7 @@ Page({
       url: '../jfxbdidx/idx'
     })
   },
+  
   onLoad: function () {
     let that = this
     var pudding = wx.getStorageSync('pudding') || {}
@@ -128,6 +129,8 @@ Page({
           console.log(res)
           wx.hideLoading() 
           if(res.statusCode == 200){
+            that.responseLogin(null);
+            return false;
             if(res.data.data == null ){
               that.responseLogin(null)
             } else {

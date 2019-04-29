@@ -1,0 +1,24 @@
+<view class="">
+  <view class="item-list flex-column bgw">
+    <view class="item-cells flex-row item-line">
+      <text>选择用户</text>
+    </view>
+    <view class="item-cells flex-row item-line">
+      <image src='/images/user_del@2x.png' class="user_del"></image>
+      <text>梁朝伟</text>
+    </view>
+     <view class="item-cells flex-row item-line">
+      <image src='/images/user_del@2x.png' class="user_del"></image>
+      <text>梁朝伟</text>
+    </view>
+  </view>
+
+  <view class="item-list flow-column bgw">
+    <view class="item-cells flex-row item-line">
+      <text>选择日期</text>
+    </view>
+    <view class="item-cells flow-row item-line">
+      <text>起始时间</text>
+    </view>
+  </view>
+</view>

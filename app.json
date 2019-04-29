@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/profile/viewtrace",
     "pages/index/index",
     "pages/pattern/pattern",
     "pages/manager/personprofile",

@@ -1,23 +1,16 @@
 /**index.wxss**/
-@import "../../common/lib/weui.wxss"
+/* @import "../../common/lib/weui.wxss"; */
+.userinfo {display: flex;flex-direction: column;align-items: center;}
+.userinfo-avatar {width: 128rpx;height: 128rpx;margin: 20rpx;border-radius: 50%;}
+.userinfo-nickname {color: #aaa;}
+.usermotto {margin-top: 200px;}
 
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
-}
+.binduser{padding:60rpx;}
+.binduser .title{font-size: 40rpx;margin-bottom:64rpx;}
+.binduser .item-cells{padding-left: 0;padding-right: 0;}
+.btncode{background-color:#90E3C4;color:#fff;font-size: 24rpx;height: 68rpx;line-height: 68rpx;border-radius: 68rpx;margin-right: 0;}
+.item-list .item-line:after{left: 0;right: 0;}
+.item-list .item-cells{padding-bottom: 16rpx;padding-top: 32rpx;}
+.item-list .item-cells label{margin-bottom: 28rpx;display: block;}
+.binduser .btn-next{margin-top:92rpx;width: 100%;}
+.binduser input{line-height: 68rpx;height: 68rpx;}
