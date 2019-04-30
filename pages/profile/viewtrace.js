@@ -7,6 +7,9 @@ Page({
   onLoad: function(options) {
 
   },
+  removeUser(e){
+    console.log(e);
+  },
   bindDateChange_start() {
     var date = new Date();
 
