@@ -14,3 +14,7 @@
 .radiostyle radio .wx-radio-input{height: 32rpx; width: 32rpx;margin-top: -4rpx;border-radius: 50%;border: 2rpx solid #E1E1E1;background: transparent;}
 .radiostyle radio .wx-radio-input.wx-radio-input-checked::before{text-align: center;
 font-size:30rpx;color:#fff;}
+.center{align-items: center;}
+.f-just-bet{justify-content:space-between;}
+
+.martb{margin-top: 20rpx;margin-bottom: 20rpx;}
