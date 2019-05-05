@@ -1,11 +1,22 @@
+var util = require('../../utils/util.js');
+var app = getApp();
 Page({
   data: {
-    date: '2018-01-02',
-    time: '12:00'
+    date: '2019-01-02',
+    time: '12:00',
+    isshowstart:false,
+    isshowend:false,
+    start_date:'',
+    start_time:'',
+    end_date:'',
+    end_time:'',
+    user_info: []
   },
-
   onLoad: function(options) {
-
+    console.log(app.globalData.selGroup)
+    util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=0', function (res) {
+      console.log(res)
+    })
   },
   removeUser(e){
     console.log(e);
@@ -45,15 +56,77 @@ Page({
     this.setData(data);
   },
   bindDateChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      date: e.detail.value
-    })
+    let type = e.target.dataset.type;
+    if (type == 'start') {
+      this.setData({
+        start_date: e.detail.value
+      })
+    } else {
+      this.setData({
+        end_date: e.detail.value
+      })
+    }
   },
   bindTimeChange(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      time: e.detail.value
+    let type = e.target.dataset.type;
+    if(type == 'start') {
+      this.setData({
+        start_time : e.detail.value
+      })
+    } else {
+      this.setData({
+        end_time : e.detail.value
+      })
+    }
+  },
+  showdate(e) {
+    let type = e.target.dataset.type;
+    if(type == 'start') {
+      this.setData({
+        isshowstart: true,
+        start_date: util.formatDate(),
+        start_time: util.formatTime2()
+      })
+    } else {
+      this.setData({
+        isshowend: true,
+        end_date: util.formatDate(),
+        end_time: util.formatTime2()
+      })
+    }
+  },
+  formSubmit(e) {
+    console.log(e)
+    if(user_info.length == 0) {
+      wx.showToast({
+        title: '请选择用户',
+        icon: 'none',
+        duration: 2000
+      })
+      return false;
+    }
+    if (!isshowstart || start_date == '' || start_time == '') {
+      wx.showToast({
+        title: '请选择起始时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return false;
+    }
+    if (!isshowend || end_date == '' || end_time == '') {
+      wx.showToast({
+        title: '请选择结束时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return false;
+    }
+    let ids = '';
+    for(let i=0; i < user_info.length; i++) {
+      ids = user_info[i].id+',';
+    }
+    wx.navigateTo({
+      url: '../profile/trace?start_time=' + start_date + ' ' + start_time + '&end_time=' + end_date + ' ' + end_time+'&ids='+ids
     })
   }
 })

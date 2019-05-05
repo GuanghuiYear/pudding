@@ -373,5 +373,8 @@ Page({
   onShareAppMessage: function () { }, /* 用户点击右上角分享 */
   patternSettingHandler: function() {
     wx.navigateTo({ url: "../../pages/pattern/pattern" })
+  },
+  viewTraceHandler: function () {
+    wx.navigateTo({ url: "../../pages/profile/viewtrace" })
   }
 })

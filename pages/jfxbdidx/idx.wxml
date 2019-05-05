@@ -26,7 +26,7 @@
       class="mgctrl" animation="{{mgctrlAnimates[0]}}"
       style="bottom:{{mgctrlPositions[0].btm}}px; left:{{mgctrlPositions[0].lt}}px;" /> -->
 
-    <cover-image src="/images/index_set_trajectory@3x.png" class="mgctrl" style="bottom:{{mgctrlPositions[0].btm}}px; left:{{mgctrlPositions[0].lt}}px;" />
+    <cover-image src="/images/index_set_trajectory@3x.png" class="mgctrl" bindtap="viewTraceHandler" style="bottom:{{mgctrlPositions[0].btm}}px; left:{{mgctrlPositions[0].lt}}px;" />
     <cover-image src="/images/index_set_pattern@3x.png" class="mgctrl" bindtap="patternSettingHandler" style="bottom:{{mgctrlPositions[1].btm}}px; left:{{mgctrlPositions[1].lt}}px;" />
     <!-- <cover-image src="/images/index_set@3x.png"
       class="mgctrl"

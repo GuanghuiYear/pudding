@@ -25,7 +25,6 @@
           <button type="button" class="btn-reset btncode" bindtap="reqCodeHandler">获取验证码</button>
         </view>
       </view>
-
     </view>
     <button type="button" class="btn btn-bggreen btn-reset btn-next" bindtap="bindSubmitHandler">下一步</button>
   </view>
