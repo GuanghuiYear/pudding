@@ -97,7 +97,7 @@ Page({
   },
   formSubmit(e) {
     console.log(e)
-    if(user_info.length == 0) {
+    if(this.data.user_info.length == 0) {
       wx.showToast({
         title: '请选择用户',
         icon: 'none',
@@ -105,7 +105,7 @@ Page({
       })
       return false;
     }
-    if (!isshowstart || start_date == '' || start_time == '') {
+    if (!this.data.isshowstart || this.data.start_date == '' || this.data.start_time == '') {
       wx.showToast({
         title: '请选择起始时间',
         icon: 'none',
@@ -113,7 +113,7 @@ Page({
       })
       return false;
     }
-    if (!isshowend || end_date == '' || end_time == '') {
+    if (!this.data.isshowend || this.data.end_date == '' || this.data.end_time == '') {
       wx.showToast({
         title: '请选择结束时间',
         icon: 'none',
@@ -122,11 +122,11 @@ Page({
       return false;
     }
     let ids = '';
-    for(let i=0; i < user_info.length; i++) {
-      ids = user_info[i].id+',';
+    for (let i = 0; i < this.data.user_info.length; i++) {
+      ids = this.data.user_info[i].id+',';
     }
     wx.navigateTo({
-      url: '../profile/trace?start_time=' + start_date + ' ' + start_time + '&end_time=' + end_date + ' ' + end_time+'&ids='+ids
+      url: '../profile/trace?start_time=' + this.data.start_date + ' ' + this.data.start_time + '&end_time=' + this.data.end_date + ' ' + this.data.end_time+'&ids='+ids
     })
   }
 })
