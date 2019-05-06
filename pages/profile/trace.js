@@ -13,7 +13,7 @@ Page({
     let sdt = lp.sdate + "%20" + lp.stime.replace(":", "%3A") + '%3A00'
     let edt = lp.edate + "%20" + lp.etime.replace(":", "%3A") + '%3A00'
     let requrl = gb.baseUrl + '/bindings/' + gb.selPosition.binding.id + '/positions?start=' + sdt + '&end=' + edt;
-    let that = this
+    let that = this;
     
     console.log('will request trace content:', requrl);
     wx.showLoading()
