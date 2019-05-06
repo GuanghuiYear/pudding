@@ -40,7 +40,6 @@ Page({
     for (var i = 0; i < 24; i++) {
       hours.push(i);
     }
-
     // 分
     for (var i = 0; i < 60; i += 10) {
       minute.push(i);

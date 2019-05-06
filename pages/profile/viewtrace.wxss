@@ -1,3 +1,4 @@
 page{background-color:#F4F4F4;}
 .user_del{width: 32rpx;height: 32rpx;margin-right: 20rpx;}
 .date{margin-right: 15rpx;}
+.btn{margin-top: 40rpx;width: 90%;display: block;}
