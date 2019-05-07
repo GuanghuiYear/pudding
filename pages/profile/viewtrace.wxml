@@ -3,13 +3,9 @@
     <view class="item-cells flex-row item-line">
       <text>选择用户</text>
     </view>
-    <view class="item-cells flex-row item-line">
-      <image src='/images/user_del@2x.png' class="user_del" bindtap='removeUser'></image>
-      <text>梁朝伟</text>
-    </view>
-    <view class="item-cells flex-row item-line">
-      <image src='/images/user_del@2x.png' class="user_del" bindtap='removeUser'></image>
-      <text>梁朝伟</text>
+    <view class="item-cells flex-row item-line" wx:for="{{user_info}}" wx-for-item="{{item}}" wx:key='{{index}}'>
+      <image src='/images/user_del@2x.png' class="user_del" data-index='{{index}}' bindtap='removeUser'></image>
+      <text>{{item.name}}</text>
     </view>
   </view>
 

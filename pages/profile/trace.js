@@ -6,12 +6,12 @@ Page({
     inPoint:[]
   },
 
-  requestTrace: function() {
+  requestTrace: function (options) {
     let gb = getApp().globalData
     let lp = gb.limithistory
 
-    let sdt = lp.sdate + "%20" + lp.stime.replace(":", "%3A") + '%3A00'
-    let edt = lp.edate + "%20" + lp.etime.replace(":", "%3A") + '%3A00'
+    let sdt = options.start_date + "%20" + options.start_time.replace(":", "%3A") + '%3A00'
+    let edt = options.end_date + "%20" + options.end_time.replace(":", "%3A") + '%3A00'
     let requrl = gb.baseUrl + '/bindings/' + gb.selPosition.binding.id + '/positions?start=' + sdt + '&end=' + edt;
     let that = this;
     
@@ -38,7 +38,8 @@ Page({
           plypath1: [{
             points: ps,
             color: "#123456AA",
-            width: 6
+            width: 6,
+            arrowLine: true
           }]
         })
       }
@@ -47,7 +48,7 @@ Page({
 
   onLoad: function (options) {
     if (this.data.plypath1.length <= 0) {
-      this.requestTrace()
+      this.requestTrace(options)
     }
   },
 })

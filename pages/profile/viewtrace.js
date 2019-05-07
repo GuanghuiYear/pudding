@@ -10,16 +10,33 @@ Page({
     start_time:'',
     end_date:'',
     end_time:'',
-    user_info: []
+    user_info: [{id:1,name:'梁朝伟'},{id:2,name:'古天乐'}]
   },
   onLoad: function(options) {
-    console.log(app.globalData.selGroup)
+    var that = this;
     util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=0', function (res) {
-      console.log(res)
+      if(res.code == 200) {
+        that.setdata({
+          user_info: res.user_info
+        });
+      }
     })
   },
   removeUser(e){
-    console.log(e);
+    if (this.data.user_info.length <= 1) {
+      wx.showToast({
+        title: '已经是最后一个用户了',
+        icon: 'none',
+        duration: 2000
+      })
+      return false;
+    }
+
+    let index = e.currentTarget.dataset.index;
+    this.data.user_info.splice(index, 1);
+    this.setData({
+      user_info: this.data.user_info
+    });
   },
   bindDateChange_start() {
     var date = new Date();
@@ -122,10 +139,11 @@ Page({
     }
     let ids = '';
     for (let i = 0; i < this.data.user_info.length; i++) {
-      ids = this.data.user_info[i].id+',';
+      ids += this.data.user_info[i].id+',';
     }
+    ids = ids.substring(0, ids.length - 1);
     wx.navigateTo({
-      url: '../profile/trace?start_time=' + this.data.start_date + ' ' + this.data.start_time + '&end_time=' + this.data.end_date + ' ' + this.data.end_time+'&ids='+ids
+      url: '../profile/trace?start_date=' + this.data.start_date + '&start_time=' + this.data.start_time + '&end_date=' + this.data.end_date + '&end_time=' + this.data.end_time+'&ids='+ids
     })
   }
 })
