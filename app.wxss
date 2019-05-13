@@ -10,11 +10,13 @@
 .item-list .item-cells{padding:34rpx 30rpx;font-size: 28rpx;}
 .item-list .item-line{position: relative;}
 .item-list .item-line:after{content: "";position: absolute;left: 30rpx;right: 30rpx;bottom: 0;height: 1px;background-color: #EFEFEF;}
-.item-list .item-line:last-child:after{display: none;}
+/* .item-list .item-line:last-child:after{display: none;} */
 .radiostyle radio .wx-radio-input{height: 32rpx; width: 32rpx;margin-top: -4rpx;border-radius: 50%;border: 2rpx solid #E1E1E1;background: transparent;}
 .radiostyle radio .wx-radio-input.wx-radio-input-checked::before{text-align: center;
 font-size:30rpx;color:#fff;}
 .center{align-items: center;}
 .f-just-bet{justify-content:space-between;}
+.txt-right{text-align: right;}
 
 .martb{margin-top: 20rpx;margin-bottom: 20rpx;}
+.pad28{padding:28rpx;}

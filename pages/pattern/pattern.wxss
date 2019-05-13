@@ -1,3 +1,4 @@
 page{background: #F4F4F4;}
 .section__title{font-size: 30rpx;border-bottom: 1px solid #EFEFEF;margin-left:30rpx;margin-right:30rpx;padding-bottom: 30rpx;font-weight: 500;}
 .btn-area{margin-top: 50rpx;}
+.item-list .item-line:last-child:after{display: none;}

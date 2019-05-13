@@ -1,28 +1,6 @@
-/* pages/railsetting/radius.wxss */
-
-@import "../../common/lib/weui.wxss"
-
-
-/*.rail-raduis-btn-place-first{
-  margin-top: 80px;
-}*/
-
-.rail-raduis-btn{
-  line-height: 1.5;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 40px;
-  padding-right: 40px;
-  border-radius: 10px;
-}
-
-.hlayout-btn-container{
-	position: relative;
-	display: -webkit-box; 
-	display: -webkit-flex; 
-	display: flex; 
-	-webkit-box-align: center; 
-	-webkit-align-items:center; 
-	align-items: center; 
-	padding-top: 57px; 
-}
+.title{color:#333;font-size: 30rpx;}
+input[type="number"]{width: 300rpx;margin-right: 16rpx;}
+.btnbox{margin-top: 114rpx;}
+.btnbox .btn{height: 120rpx;border-radius: 20rpx;font-size: 28rpx;line-height: 1.5;padding:20rpx 0;font-family: 'PingFangSC';}
+.btnbox .owncenter{background: #22C3C7;}
+.btnbox .customcenter{background: #22C789;}
