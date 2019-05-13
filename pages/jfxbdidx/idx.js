@@ -1,4 +1,5 @@
-
+var util = require('../../utils/util.js');
+var app = getApp();
 Page({
   /*  页面的初始数据 */
   data: {
@@ -92,7 +93,6 @@ Page({
   },
 
   showRailsManager:function(){
-    var app = getApp();
     if (app.globalData.selGroup == null || !app.globalData.selGroup.id) {
       wx.showModal({
         title: '无法创建围栏',
@@ -109,6 +109,7 @@ Page({
 
   /* 生命周期函数--监听页面加载 */
   onLoad: function (options) {
+    console.log(222, app.globalData)
     this.mapCtx = wx.createMapContext('map')
     var that = this
     // layout map control position.
@@ -120,12 +121,15 @@ Page({
       });
     }).exec();
     // update header panel.(user icon, user name, and so on)
-    var app = getApp()
     this.setData({
       userIcon : app.globalData.userInfo.avatarUrl,
       nickName: app.globalData.userInfo.nickName
     })
     // get mobile current location and update UI
+    let radius = 0;
+    if (typeof app.globalData.settingRail != undefined) {
+      radius = typeof app.globalData.settingRail.radius != undefined ? app.globalData.settingRail.radius : 0;
+    }
     wx.getLocation({
       type: 'gcj02',
       success: function(res) {
@@ -133,12 +137,18 @@ Page({
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
-          userLocation: res
+          userLocation: res,
+          circles: radius > 0 ? {
+            latitude: res.latitude,
+            longitude: res.longitude,
+            color: '#53E8AE09',
+            fillColor: '#53E8AE04',
+            radius: radius,
+            strokeWidth: 1
+          } : that.data.circles
         })
       },
     })
-    console.log('logined info main index page:')
-    console.log(app.globalData.pudding)
   },
 
   regionchangeHandler:function(evt){
@@ -159,7 +169,6 @@ Page({
   },
  
   loadOrgs:function(succBlock){
-    var app = getApp() 
     var gd = app.globalData
     var that = this
     var gprequrl = gd.baseUrl + '/users/' + gd.pudding.id + '/organizations'
@@ -201,7 +210,7 @@ Page({
   },
 
   markerTouchHandler:function(evt){
-    var gb = getApp().globalData
+    var gb = app.globalData
     for(var i=0; i<this.data.markers.length; i++) {
       console.log(this.data.markers[i].userInfo)
       if (this.data.markers[i].userInfo.binding.id === evt.markerId) {
@@ -220,7 +229,6 @@ Page({
   startDevLoops:function(){
     let that = this
     let interval = 1000 * 1 * 60
-    let app = getApp()
     let gb = app.globalData
 
     let devsLocationsReq = function(){
@@ -286,7 +294,6 @@ Page({
 
   followRails:[], // 如果需要，此处改为map
   drawFlagRails:function() {
-    var app = getApp() 
     if (!app.globalData.selGroup || !app.globalData.selGroup.id) {
       console.warn('none selected rails exist. stop draw rails')
       return 
@@ -311,7 +318,7 @@ Page({
 
   showDevicesMark:function(){
     // return // service has error
-    var devs = getApp().globalData.selGroup.children  //children
+    var devs = app.globalData.selGroup.children  //children
     if (!devs) return
     var ms = []
     for(var i=0; i<devs.length; i++){
@@ -329,7 +336,6 @@ Page({
   },
 
   choiseGroup: function(evt) {
-    var app = getApp()
     if (!app.globalData.groups || app.globalData.groups.length == 0){
       wx.showModal({
         content: '您当前未加入任何组织，或加入的组织未开始',
@@ -348,7 +354,7 @@ Page({
   },
   /* 生命周期函数--监听页面显示*/
   onShow: function () {
-    var app = getApp()
+    
     var that = this
     if(!app.globalData.selGroup) {
       this.loadOrgs(function(){
@@ -357,9 +363,29 @@ Page({
         }
       })
     } else {
-      that.setData({
-        selGroup: app.globalData.selGroup
+      let radius = 0;
+      if (typeof app.globalData.settingRail != undefined) {
+        radius = typeof app.globalData.settingRail.radius != undefined ? app.globalData.settingRail.radius : 0;
+      }
+      wx.getLocation({
+        type: 'gcj02',
+        success: function (res) {
+          app.globalData.location = res
+          console.log(res)
+          that.setData({
+            circles: radius > 0 ? [{
+              latitude: res.latitude,
+              longitude: res.longitude,
+              color: '#53E8AEDD',
+              fillColor: '#22C78915',
+              radius: radius,
+              strokeWidth: 1
+            }] : that.data.circles,
+            selGroup: app.globalData.selGroup
+          })
+        }
       })
+      console.log(that.data.circles)
     }
   },
   /* 生命周期函数--监听页面隐藏*/
