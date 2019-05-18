@@ -2,8 +2,8 @@
   <view class="section section_gap bgw">
     <view class="section__title">实时选择模式</view>
     <radio-group name="minute" class="flex-column item-list">
-      <label wx:for="{{minute_list}}" wx-for-item="{{item}}" wx:key='{{index}}' class="flex-row item-cells item-line radiostyle">
-        <radio value="{{item.option}}" class="item-radio"/> {{item.value}}分钟
+      <label wx:for="{{minute_list}}" wx-for-item="{{item}}" wx:key='{{index}}' class="flex-row item-cells item-line radiostyle center">
+        <radio value="{{item.option}}" class="item-radio" /> {{item.value}}分钟
       </label>
     </radio-group>
   </view>

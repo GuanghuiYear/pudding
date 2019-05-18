@@ -5,7 +5,7 @@
     </view>
     <view class="flex-row item-cells item-line f-just-bet">
       <text>设置半径</text>
-      <view class="flex-row txt-right">
+      <view class="flex-row txt-right center">
         <input type="number" placeholder="请输入" value="{{fixRadius}}" bindinput="inputFixRadiusHandler" />
         <text>m</text>
       </view>
