@@ -1,28 +1,40 @@
 var util = require('../../utils/util.js');
+var dateTimePicker = require('../../utils/dateTimePicker.js');
 var app = getApp();
 Page({
   data: {
     date: '2019-01-02',
     time: '12:00',
-    isshowstart:false,
-    isshowend:false,
-    start_date:'',
-    start_time:'',
-    end_date:'',
-    end_time:'',
-    user_info: [{id:1,name:'梁朝伟'},{id:2,name:'古天乐'}]
+    isshowstart: false,
+    isshowend: false,
+    start_date: '',
+    start_time: '',
+    end_date: '',
+    end_time: '',
+    user_info: [],
+    dateTimeArray: [],
+    startDateTime: [],
+    endDateTime: []
   },
   onLoad: function(options) {
     var that = this;
-    util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=0', function (res) {
-      if(res.code == 200) {
-        that.setdata({
-          user_info: res.user_info
+    var obj = dateTimePicker.dateTimePicker('2015');
+    this.setData({
+      startDateTime: obj.dateTime,
+      endDateTime: obj.dateTime,
+      dateTimeArray: obj.dateTimeArray,
+    });
+    console.log(111,this.data.dateTimeArray)
+    util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=' + app.globalData.pudding.id, function(res) {
+      console.log(res);
+      if (res.code == 200) {
+        that.setData({
+          user_info: res.data
         });
       }
     })
   },
-  removeUser(e){
+  removeUser(e) {
     if (this.data.user_info.length <= 1) {
       wx.showToast({
         title: '已经是最后一个用户了',
@@ -85,35 +97,34 @@ Page({
   },
   bindTimeChange(e) {
     let type = e.target.dataset.type;
-    if(type == 'start') {
+    if (type == 'start') {
       this.setData({
-        start_time : e.detail.value
+        start_time: e.detail.value
       })
     } else {
       this.setData({
-        end_time : e.detail.value
+        end_time: e.detail.value
       })
     }
   },
   showdate(e) {
     let type = e.target.dataset.type;
-    if(type == 'start') {
+    let ymd = util.formatDate();
+    console.log(ymd.join('-'))
+    let hms = util.formatTime2();
+    if (type == 'start') {
       this.setData({
-        isshowstart: true,
-        start_date: util.formatDate(),
-        start_time: util.formatTime2()
+        isshowstart: true
       })
     } else {
       this.setData({
-        isshowend: true,
-        end_date: util.formatDate(),
-        end_time: util.formatTime2()
+        isshowend: true
       })
     }
   },
   formSubmit(e) {
     console.log(e)
-    if(this.data.user_info.length == 0) {
+    if (this.data.user_info.length == 0) {
       wx.showToast({
         title: '请选择用户',
         icon: 'none',
@@ -139,11 +150,64 @@ Page({
     }
     let ids = '';
     for (let i = 0; i < this.data.user_info.length; i++) {
-      ids += this.data.user_info[i].id+',';
+      ids += this.data.user_info[i].binding_id + ',';
     }
     ids = ids.substring(0, ids.length - 1);
     wx.navigateTo({
-      url: '../profile/trace?start_date=' + this.data.start_date + '&start_time=' + this.data.start_time + '&end_date=' + this.data.end_date + '&end_time=' + this.data.end_time+'&ids='+ids
+      url: '../profile/trace?start_date=' + this.data.start_date + '&start_time=' + this.data.start_time + '&end_date=' + this.data.end_date + '&end_time=' + this.data.end_time + '&ids=' + ids
     })
+  },
+  changeDateTime(e) {
+    let type = e.target.dataset.type;
+    let dateArr = this.data.dateTimeArray;
+    let date = e.detail.value;
+    let ymd = dateArr[0][date[0]] + '-' + dateArr[1][date[1]] + '-' + dateArr[2][date[2]];
+    let hms = dateArr[3][date[3]] + ':' + dateArr[4][date[4]] + ':' + dateArr[5][date[5]];
+
+    if (type == 'start') {
+      this.setData({
+        startDateTime: e.detail.value,
+        start_date: ymd,
+        start_time: hms
+      })
+    } else {
+      this.setData({
+        endDateTime: e.detail.value,
+        end_date: ymd,
+        end_time: hms
+      })
+    }
+  },
+  changeDateTimeColumn(e) {
+    let type = e.target.dataset.type;
+    let arr = [];
+    if(type == 'start') {
+      arr = this.data.startDateTime;
+    } else {
+      arr = this.data.endDateTime;
+    }
+    arr[e.detail.column] = e.detail.value;
+    let dateArr = this.data.dateTimeArray;
+    let ymd = dateArr[0][arr[0]] + '-' + dateArr[1][arr[1]] + '-' + dateArr[2][arr[2]];
+    let hms = dateArr[3][arr[3]] + ':' + dateArr[4][arr[4]] + ':' + dateArr[5][arr[5]];
+    dateArr[2] = dateTimePicker.getMonthDay(dateArr[0][arr[0]], dateArr[1][arr[1]]);
+
+    if(type == 'start') {
+      this.setData({
+        dateTimeArray: dateArr,
+        startDateTime: arr,
+        start_date: ymd,
+        start_time: hms,
+        isshowstart:true
+      });
+    } else {
+      this.setData({
+        dateTimeArray: dateArr,
+        endDateTime: arr,
+        end_date: ymd,
+        end_time: hms,
+        isshowend: true
+      });
+    }
   }
 })

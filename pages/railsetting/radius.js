@@ -22,6 +22,7 @@ Page({
       isFlow: true,
       radius: numberRadius
     };
+    app.globalData.is_self_location = true;
     wx.navigateBack({ delta: 1 });
   },
 

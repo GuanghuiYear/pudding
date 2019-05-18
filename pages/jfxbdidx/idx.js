@@ -3,7 +3,7 @@ var app = getApp();
 Page({
   /*  页面的初始数据 */
   data: {
-    railCenterY:"50%", // bind data
+    railCenterY: "50%", // bind data
     railCenterX: "", // bind data
     // header panel content bind content
     userIcon: "", // bind data
@@ -14,16 +14,28 @@ Page({
     circles: [], // bind data
     latitude: 23.099994, // bind data
     longitude: 113.324520, // bind data
-    mgctrlPositions: [{ btm: 64, lt: 100 }, { btm: 0, lt: 0 }, { btm: 0, lt: 0 }, { btm: 0, lt: 0 }], // binding data
-    userLocation:null, // user current location
+    mgctrlPositions: [{
+      btm: 64,
+      lt: 100
+    }, {
+      btm: 0,
+      lt: 0
+    }, {
+      btm: 0,
+      lt: 0
+    }, {
+      btm: 0,
+      lt: 0
+    }], // binding data
+    userLocation: null, // user current location
     inPoints: [] // bind data
-  }, 
-
-  states:{
-    needUpdateCircle:false
   },
 
-  layoutMgControl:function(centerPoint, bottomPadding, layoutAry){
+  states: {
+    needUpdateCircle: false
+  },
+
+  layoutMgControl: function(centerPoint, bottomPadding, layoutAry) {
     const itemSize = 48;
     layoutAry[0].btm = bottomPadding;
     layoutAry[0].lt = (centerPoint.width - itemSize) / 2;
@@ -39,7 +51,7 @@ Page({
     return layoutAry;
   },
 
-  getCicleData:function(center, rudis){
+  getCicleData: function(center, rudis) {
     var c = {
       latitude: center.latitude,
       longitude: center.longitude,
@@ -49,9 +61,9 @@ Page({
       fillColor: "#CADEFF31"
     }
     return c
-  }, 
+  },
 
-  getMarkerData:function(center, title, userInfo){
+  getMarkerData: function(center, title, userInfo) {
     var m = {}
     m.id = userInfo.binding.id
     m.latitude = center.latitude
@@ -74,9 +86,9 @@ Page({
     return m
   },
 
-  testScarBarCode: function () {
+  testScarBarCode: function() {
     wx.scanCode({
-      success: (res) => { 
+      success: (res) => {
         wx.showToast({
           title: res + ''
         })
@@ -92,7 +104,7 @@ Page({
     // this.loadRailInfo();
   },
 
-  showRailsManager:function(){
+  showRailsManager: function() {
     if (app.globalData.selGroup == null || !app.globalData.selGroup.id) {
       wx.showModal({
         title: '无法创建围栏',
@@ -101,65 +113,60 @@ Page({
       })
       return
     }
-    app.globalData.location = { latitude:this.data.latitude, longitude:this.data.longitude };
+    app.globalData.location = {
+      latitude: this.data.latitude,
+      longitude: this.data.longitude
+    };
     wx.navigateTo({
       url: '../../pages/railsetting/radius',
     });
   },
 
   /* 生命周期函数--监听页面加载 */
-  onLoad: function (options) {
-    console.log(222, app.globalData)
+  onLoad: function(options) {
     this.mapCtx = wx.createMapContext('map')
     var that = this
     // layout map control position.
     var query = wx.createSelectorQuery();
-    query.select('#map').boundingClientRect(function(res){
-      const destLayout = that.layoutMgControl({width:res.width, height:res.height}, 20, that.data.mgctrlPositions);
+    query.select('#map').boundingClientRect(function(res) {
+      const destLayout = that.layoutMgControl({
+        width: res.width,
+        height: res.height
+      }, 20, that.data.mgctrlPositions);
       that.setData({
         mgctrlPositions: destLayout
       });
     }).exec();
     // update header panel.(user icon, user name, and so on)
     this.setData({
-      userIcon : app.globalData.userInfo.avatarUrl,
+      userIcon: app.globalData.userInfo.avatarUrl,
       nickName: app.globalData.userInfo.nickName
     })
     // get mobile current location and update UI
-    let radius = 0;
-    if (typeof app.globalData.settingRail != undefined) {
-      radius = typeof app.globalData.settingRail.radius != undefined ? app.globalData.settingRail.radius : 0;
-    }
     wx.getLocation({
       type: 'gcj02',
       success: function(res) {
         app.globalData.location = res
+        app.globalData.longitude = res.longitude;
+        app.globalData.latitude = res.latitude;
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
-          userLocation: res,
-          circles: radius > 0 ? {
-            latitude: res.latitude,
-            longitude: res.longitude,
-            color: '#53E8AE09',
-            fillColor: '#53E8AE04',
-            radius: radius,
-            strokeWidth: 1
-          } : that.data.circles
+          userLocation: res
         })
       },
     })
   },
 
-  regionchangeHandler:function(evt){
+  regionchangeHandler: function(evt) {
     console.log("get region change event.", evt);
   },
 
-  showCrtLocation:function(evt){
+  showCrtLocation: function(evt) {
     var that = this;
     wx.getLocation({
       type: 'gcj02',
-      success: function (res) {
+      success: function(res) {
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
@@ -167,8 +174,8 @@ Page({
       }
     });
   },
- 
-  loadOrgs:function(succBlock){
+
+  loadOrgs: function(succBlock) {
     var gd = app.globalData
     var that = this
     var gprequrl = gd.baseUrl + '/users/' + gd.pudding.id + '/organizations'
@@ -176,7 +183,7 @@ Page({
     wx.showLoading()
     wx.request({
       url: gprequrl,
-      success: function(res){
+      success: function(res) {
         wx.hideLoading()
         console.log(res) // for debug
         if ((res.statusCode == 200 && res.statusCode < 300) && res.data.code == 200) {
@@ -185,12 +192,12 @@ Page({
             return
           }
           var gid = wx.getStorageSync("lastWatchingGroupId")
-          if(gid == null || gid == undefined || gid === ""){
+          if (gid == null || gid == undefined || gid === "") {
             let fg = app.globalData.groups[0]
             wx.setStorageSync("lastWatchingGroupId", fg.id)
             gid = fg.id
           }
-          for (var i = 0; i < app.globalData.groups.length; i++){
+          for (var i = 0; i < app.globalData.groups.length; i++) {
             if (app.globalData.groups[i].id === gid) {
               app.globalData.selGroup = app.globalData.groups[i]
               that.setData({
@@ -199,8 +206,8 @@ Page({
               break
             }
           }
-          that.drawFlagRails()
-          if(succBlock) {
+          // that.drawFlagRails()
+          if (succBlock) {
             succBlock()
           }
         } else { // response error
@@ -209,9 +216,9 @@ Page({
     })
   },
 
-  markerTouchHandler:function(evt){
+  markerTouchHandler: function(evt) {
     var gb = app.globalData
-    for(var i=0; i<this.data.markers.length; i++) {
+    for (var i = 0; i < this.data.markers.length; i++) {
       console.log(this.data.markers[i].userInfo)
       if (this.data.markers[i].userInfo.binding.id === evt.markerId) {
         gb.selPosition = this.data.markers[i].userInfo
@@ -219,45 +226,49 @@ Page({
       }
     }
 
-    if (gb.selPosition.binding.id){
-      wx.navigateTo({ url:"../../pages/profile/personhistory"})
+    if (gb.selPosition.binding.id) {
+      wx.navigateTo({
+        url: "../../pages/profile/personhistory"
+      })
     }
   },
 
-  runningTimer:null,
+  runningTimer: null,
   loopMax: 2147483647,
-  startDevLoops:function(){
+  startDevLoops: function() {
     let that = this
     let interval = 1000 * 1 * 60
     let gb = app.globalData
 
-    let devsLocationsReq = function(){
+    let devsLocationsReq = function() {
       let g = app.globalData.selGroup
-      if (!g) { return }
+      if (!g) {
+        return
+      }
       let lpUrl = gb.baseUrl + '/organizations/' + g.id + '?uid=' + gb.pudding.id
       console.log('will request url:', lpUrl, ', in loop service')
 
       wx.request({
         url: lpUrl,
         method: 'GET',
-        success: function (res) {
+        success: function(res) {
           console.log(res)
-          if (res.data && (res.data.code == 200) ) { // success
+          if (res.data && (res.data.code == 200)) { // success
             g.rails = res.data.data.rails
             g.children = res.data.data.children
-            that.drawFlagRails()
+            // that.drawFlagRails()
             that.showDevicesMark()
             that.showAllPoints()
           } else {
-            if (res.data){
+            if (res.data) {
               wx.showToast({
-                icon:'none',
+                icon: 'none',
                 title: res.data.msg,
                 duration: 2000
               })
             } else {
               wx.showToast({
-                icon:'none',
+                icon: 'none',
                 title: 'net work err:[' + res.statusCode + ']',
                 duration: 2000
               })
@@ -269,7 +280,7 @@ Page({
     devsLocationsReq()
     var loopCounter = 0
     // start timer
-    this.runningTimer = setInterval(function(){
+    this.runningTimer = setInterval(function() {
       // update devices locations data  
       loopCounter += 1
       if (loopCounter > that.loopMax) {
@@ -279,30 +290,32 @@ Page({
     }, interval)
   },
 
-  showAllPoints:function() {
+  showAllPoints: function() {
     // console.log('info:', this.data.markers)
     this.setData({
       inPoints: this.data.markers
     })
   },
 
-  stopDevLoops:function(){
-    if (!this.runningTimer) { return }
+  stopDevLoops: function() {
+    if (!this.runningTimer) {
+      return
+    }
     clearInterval(this.runningTimer)
     this.runningTimer = null
   },
 
-  followRails:[], // 如果需要，此处改为map
-  drawFlagRails:function() {
+  followRails: [], // 如果需要，此处改为map
+  drawFlagRails: function() {
     if (!app.globalData.selGroup || !app.globalData.selGroup.id) {
       console.warn('none selected rails exist. stop draw rails')
-      return 
+      return
     }
     let railsData = app.globalData.selGroup.rails
-    if(!railsData) return
+    if (!railsData) return
     var cicles = []
     this.followRails = []
-    for (var i=0; i<railsData.length; i++){
+    for (var i = 0; i < railsData.length; i++) {
       let rd = railsData[i]
       if (rd.type == 2) {
         this.followRails.push(rd)
@@ -313,30 +326,33 @@ Page({
     }
     this.setData({
       ['circles']: cicles
-    }) 
+    })
   },
 
-  showDevicesMark:function(){
+  showDevicesMark: function() {
     // return // service has error
-    var devs = app.globalData.selGroup.children  //children
+    var devs = app.globalData.selGroup.children //children
     if (!devs) return
     var ms = []
-    for(var i=0; i<devs.length; i++){
-      var center = { latitude: devs[i].latitude, longitude: devs[i].longitude}
+    for (var i = 0; i < devs.length; i++) {
+      var center = {
+        latitude: devs[i].latitude,
+        longitude: devs[i].longitude
+      }
       let mdata = this.getMarkerData(center, devs[i].username, devs[i])
       ms.push(mdata)
     }
     this.setData({
       markers: ms
     })
-  }, 
+  },
 
-  railSettingHandler:function(evt) {
+  railSettingHandler: function(evt) {
     this.showRailsManager()
   },
 
   choiseGroup: function(evt) {
-    if (!app.globalData.groups || app.globalData.groups.length == 0){
+    if (!app.globalData.groups || app.globalData.groups.length == 0) {
       wx.showModal({
         content: '您当前未加入任何组织，或加入的组织未开始',
         showCancel: false
@@ -344,20 +360,22 @@ Page({
       return
     }
     // if (app.globalData.groups.length == 1) { return } // 仅仅只有一个, 不用切换
-    wx.navigateTo({ url: "../../pages/choisegroup/choisegroup"})
+    wx.navigateTo({
+      url: "../../pages/choisegroup/choisegroup"
+    })
   },
 
   /* 生命周期函数--监听页面初次渲染完成 */
-  onReady: function () {
+  onReady: function() {
     this.tAnm = wx.createAnimation();
     // this.animations = [wx.createAnimation(),wx.createAnimation(),wx.createAnimation(),wx.createAnimation()];
   },
   /* 生命周期函数--监听页面显示*/
-  onShow: function () {
-    
+  onShow: function() {
+
     var that = this
-    if(!app.globalData.selGroup) {
-      this.loadOrgs(function(){
+    if (!app.globalData.selGroup) {
+      this.loadOrgs(function() {
         if (!that.timer) {
           that.startDevLoops()
         }
@@ -367,40 +385,60 @@ Page({
       if (typeof app.globalData.settingRail != undefined) {
         radius = typeof app.globalData.settingRail.radius != undefined ? app.globalData.settingRail.radius : 0;
       }
-      wx.getLocation({
-        type: 'gcj02',
-        success: function (res) {
-          app.globalData.location = res
-          console.log(res)
-          that.setData({
-            circles: radius > 0 ? [{
-              latitude: res.latitude,
-              longitude: res.longitude,
-              color: '#53E8AEDD',
-              fillColor: '#22C78915',
-              radius: radius,
-              strokeWidth: 1
-            }] : that.data.circles,
-            selGroup: app.globalData.selGroup
-          })
-        }
-      })
-      console.log(that.data.circles)
+      if ((!app.globalData.longitude && !app.globalData.latitude) || app.globalData.is_self_location) {
+        wx.getLocation({
+          type: 'gcj02',
+          success: function(res) {
+            app.globalData.location = res
+            console.log(res)
+            that.setData({
+              circles: radius > 0 ? [{
+                latitude: res.latitude,
+                longitude: res.longitude,
+                color: '#53E8AEDD',
+                fillColor: '#22C78915',
+                radius: radius,
+                strokeWidth: 1
+              }] : that.data.circles,
+              selGroup: app.globalData.selGroup
+            })
+          }
+        })
+      } else {
+        that.setData({
+          circles: radius > 0 ? [{
+            latitude: app.globalData.latitude,
+            longitude: app.globalData.longitude,
+            color: '#53E8AEDD',
+            fillColor: '#22C78915',
+            radius: radius,
+            strokeWidth: 1
+          }] : that.data.circles,
+          selGroup: app.globalData.selGroup
+        })
+      }
     }
   },
   /* 生命周期函数--监听页面隐藏*/
-  onHide: function () {
+  onHide: function() {
     this.states.needUpdateCircle = true
   },
   /* 生命周期函数--监听页面卸载*/
-  onUnload: function () {},
-  onPullDownRefresh: function () { }, /* 页面相关事件处理函数--监听用户下拉动作 */
-  onReachBottom: function () { }, /* 页面上拉触底事件的处理函数 */
-  onShareAppMessage: function () { }, /* 用户点击右上角分享 */
+  onUnload: function() {},
+  onPullDownRefresh: function() {},
+  /* 页面相关事件处理函数--监听用户下拉动作 */
+  onReachBottom: function() {},
+  /* 页面上拉触底事件的处理函数 */
+  onShareAppMessage: function() {},
+  /* 用户点击右上角分享 */
   patternSettingHandler: function() {
-    wx.navigateTo({ url: "../../pages/pattern/pattern" })
+    wx.navigateTo({
+      url: "../../pages/pattern/pattern"
+    })
   },
-  viewTraceHandler: function () {
-    wx.navigateTo({ url: "../../pages/profile/viewtrace" })
+  viewTraceHandler: function() {
+    wx.navigateTo({
+      url: "../../pages/profile/viewtrace"
+    })
   }
 })

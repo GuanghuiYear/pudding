@@ -9,9 +9,10 @@ App({
     requestUrl: 'https://mgt.jfxbd.com',
     settingRail: {
       radius: 0
-    }
+    },
+    longitude: '',
+    latitude: '',
+    is_self_location: true
   },
-
-
   onLaunch: function() {}
 })

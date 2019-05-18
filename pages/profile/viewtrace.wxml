@@ -5,7 +5,7 @@
     </view>
     <view class="item-cells flex-row item-line" wx:for="{{user_info}}" wx-for-item="{{item}}" wx:key='{{index}}'>
       <image src='/images/user_del@2x.png' class="user_del" data-index='{{index}}' bindtap='removeUser'></image>
-      <text>{{item.name}}</text>
+      <text>{{item.username}}</text>
     </view>
   </view>
 
@@ -16,17 +16,19 @@
       </view>
       <view class="item-cells flex-row item-line f-just-bet">
         <text>起始时间</text>
-        <view wx:if="{{!isshowstart}}" bindtap="showdate" data-type='start'>请选择</view>
-        <block wx:else >
+        <!-- <view wx:if="{{!isshowstart}}" bindtap="showdate" data-type='start'>请选择</view> -->
+        <block>
           <view class="flex-row">
             <view class="date">
-              <picker mode="date" value="{{start_date}}" start="2018-01-01" end="2057-09-01" data-type='start' bindchange="bindDateChange">
-                <view class="picker">{{start_date}}</view>
-              </picker>
-            </view>
-            <view class="time">
-              <picker mode="time" value="{{start_time}}" start="00:00" end="23:59" data-type='start' data bindchange="bindTimeChange">
-                <view class="picker">{{start_time}}</view>
+              <picker mode="multiSelector" value="{{startDateTime}}" data-type='start' bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range='{{dateTimeArray}}'>
+                <view class="picker">
+                  <block wx:if="{{!isshowstart}}">
+                    请选择
+                  </block>
+                  <block wx:else>
+                    {{dateTimeArray[0][startDateTime[0]]}}-{{dateTimeArray[1][startDateTime[1]]}}-{{dateTimeArray[2][startDateTime[2]]}} {{dateTimeArray[3][startDateTime[3]]}}:{{dateTimeArray[4][startDateTime[4]]}}:{{dateTimeArray[5][startDateTime[5]]}}
+                  </block>
+                </view>
               </picker>
             </view>
           </view>
@@ -34,17 +36,19 @@
       </view>
       <view class="item-cells flex-row item-line f-just-bet">
         <text>结束时间</text>
-        <view wx:if="{{!isshowend}}" bindtap="showdate" data-type='end'>请选择</view>
-        <block wx:else >
+        <!-- <view wx:if="{{!isshowend}}" bindtap="showdate" data-type='end'>请选择</view> -->
+        <block>
           <view class="flex-row">
             <view class="date">
-              <picker mode="date" value="{{end_date}}" start="2018-01-01" end="2057-09-01" data-type='end' bindchange="bindDateChange">
-                <view class="picker">{{end_date}}</view>
-              </picker>
-            </view>
-            <view class="time">
-              <picker mode="time" value="{{end_time}}" start="00:01" end="23:59" data-type='end' bindchange="bindTimeChange">
-                <view class="picker">{{end_time}}</view>
+              <picker mode="multiSelector" value="{{endDateTime}}" data-type='end' bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range='{{dateTimeArray}}'>
+                <view class="picker">
+                  <block wx:if="{{!isshowend}}">
+                    请选择
+                  </block>
+                  <block wx:else>
+                    {{dateTimeArray[0][endDateTime[0]]}}-{{dateTimeArray[1][endDateTime[1]]}}-{{dateTimeArray[2][endDateTime[2]]}} {{dateTimeArray[3][endDateTime[3]]}}:{{dateTimeArray[4][endDateTime[4]]}}:{{dateTimeArray[5][endDateTime[5]]}}
+                  </block>
+                </view>
               </picker>
             </view>
           </view>
