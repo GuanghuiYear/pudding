@@ -9,7 +9,7 @@
 						<view>{{m.username}}</view>
 						<view wx:if="{{m.is_out}}" class='safe'>求救</view>
 					</view>
-					<view class="weui-media-box__desc" style='margin-top:5px;'>已绑定 {{m.distance}}米</view>
+					<view class="weui-media-box__desc" style='margin-top:5px;'>已绑定 {{m.distance}}</view>
 				</view>
 				<view class="weui-cell__ft" >
 					<view class="pd-1l-ctrl" >
