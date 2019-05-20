@@ -1,3 +1,5 @@
+var util = require('../../utils/util.js');
+var app = getApp();
 Page({
   data: {
     members:[],
@@ -12,7 +14,7 @@ Page({
   },
 
   requestMembers:function(callback){
-    let gb = getApp().globalData
+    let gb = app.globalData
     if(!gb.selGroup){
       this.setData({
         isEmptyPageDesc: '您当前没有加入任何组织,请联系管理员。',
@@ -30,27 +32,22 @@ Page({
     console.log(url);
 
     let that = this
-    wx.showLoading()
-    wx.request({
-      url: url,
-      method: 'GET',
-      success: function (res) {
-        wx.hideLoading()
-        console.log(res)
-        let tmpMems = res.data.data
-        if(!tmpMems || tmpMems.length == 0){
-          that.setData({
-            isEmptyPage: true,
-            isEmptyPageDesc: '当前账户无可管理成员'
-          })
-        } else {
-          // console.log(tmpMems)
-          that.setData({
-            members: tmpMems,
-            isEmptyPage: false,
-            isEmptyPageDesc: ''
-          })
-        }
+    wx.showLoading();
+    util.httpGet(url, function (res) {
+      wx.hideLoading()
+      let tmpMems = res.data
+      if (!tmpMems || tmpMems.length == 0) {
+        that.setData({
+          isEmptyPage: true,
+          isEmptyPageDesc: '当前账户无可管理成员'
+        })
+      } else {
+        console.log(tmpMems)
+        that.setData({
+          members: tmpMems,
+          isEmptyPage: false,
+          isEmptyPageDesc: ''
+        })
       }
     })
   },
