@@ -24,9 +24,7 @@ Page({
       endDateTime: obj.dateTime,
       dateTimeArray: obj.dateTimeArray,
     });
-    console.log(111,this.data.dateTimeArray)
     util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=' + app.globalData.pudding.id, function(res) {
-      console.log(res);
       if (res.code == 200) {
         that.setData({
           user_info: res.data
@@ -110,7 +108,6 @@ Page({
   showdate(e) {
     let type = e.target.dataset.type;
     let ymd = util.formatDate();
-    console.log(ymd.join('-'))
     let hms = util.formatTime2();
     if (type == 'start') {
       this.setData({
@@ -123,7 +120,6 @@ Page({
     }
   },
   formSubmit(e) {
-    console.log(e)
     if (this.data.user_info.length == 0) {
       wx.showToast({
         title: '请选择用户',
@@ -153,6 +149,7 @@ Page({
       ids += this.data.user_info[i].binding_id + ',';
     }
     ids = ids.substring(0, ids.length - 1);
+    app.globalData.userList = this.data.user_info;
     wx.navigateTo({
       url: '../profile/trace?start_date=' + this.data.start_date + '&start_time=' + this.data.start_time + '&end_date=' + this.data.end_date + '&end_time=' + this.data.end_time + '&ids=' + ids
     })

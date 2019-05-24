@@ -252,11 +252,13 @@ Page({
         url: lpUrl,
         method: 'GET',
         success: function(res) {
-          console.log(res)
           if (res.data && (res.data.code == 200)) { // success
             g.rails = res.data.data.rails
             g.children = res.data.data.children
-            // that.drawFlagRails()
+            app.globalData.longitude = res.data.data.rail.longitude;
+            app.globalData.latitude  = res.data.data.rail.latitude;
+            app.globalData.settingRail.radius = res.data.data.rail.radius;
+            that.drawFlagRails()
             that.showDevicesMark()
             that.showAllPoints()
           } else {
@@ -311,21 +313,28 @@ Page({
       console.warn('none selected rails exist. stop draw rails')
       return
     }
-    let railsData = app.globalData.selGroup.rails
-    if (!railsData) return
-    var cicles = []
-    this.followRails = []
-    for (var i = 0; i < railsData.length; i++) {
-      let rd = railsData[i]
-      if (rd.type == 2) {
-        this.followRails.push(rd)
-        cicles.push(this.getCicleData(this.data, rd.radius))
-      } else {
-        cicles.push(this.getCicleData(rd, rd.radius))
-      }
-    }
+    // let railsData = app.globalData.selGroup.rails
+    // if (!railsData) return
+    // var cicles = []
+    // this.followRails = []
+    // for (var i = 0; i < railsData.length; i++) {
+    //   let rd = railsData[i]
+    //   if (rd.type == 2) {
+    //     this.followRails.push(rd)
+    //     cicles.push(this.getCicleData(this.data, rd.radius))
+    //   } else {
+    //     cicles.push(this.getCicleData(rd, rd.radius))
+    //   }
+    // }
     this.setData({
-      ['circles']: cicles
+      ['circles']: [{
+        latitude: app.globalData.latitude,
+        longitude: app.globalData.longitude,
+        color: '#53E8AEDD',
+        fillColor: '#22C78915',
+        radius: app.globalData.settingRail.radius,
+        strokeWidth: 1
+      }]
     })
   },
 

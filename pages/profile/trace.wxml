@@ -6,5 +6,9 @@
     markers="{{ms}}"
     include-points="{{inPoint}}"
     polyline="{{plypath1}}"
-    />
+    >
+    <cover-view  wx:for="{{userList}}" wx:key="key" wx:for-index="key" wx:for-item="v">
+      <cover-view style="font-size: 40px; color: {{v.color}};">{{v.user_name}}</cover-view>
+    </cover-view>
+    </map>
 </view>

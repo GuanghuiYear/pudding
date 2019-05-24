@@ -1,5 +1,5 @@
 var app = getApp()
-
+var util = require('../../utils/util.js');
 const markersize = 30
 
 function range(start, edge, step) {
@@ -102,16 +102,37 @@ Page({
     });
   },
   controltap(e) {
-    console.log(e.controlId)
+    // console.log(e.controlId)
   },
   onReady(e) {
     this.createMarkers()
   },
   commitHandler() {
     if (this.data.is_marker) {
-      app.globalData.is_self_location = false;
-      wx.switchTab({
-        url: '../jfxbdidx/idx'
+      util.httpPost(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/rail', {
+        longitude: parseFloat(app.globalData.longitude),
+        latitude: parseFloat(app.globalData.latitude),
+        radius: app.globalData.settingRail.radius,
+        type: 1,
+        creator: app.globalData.pudding.id
+      }, function (result) {
+        if (result.code == 200) {
+          wx.showToast({
+            title: '围栏设置成功',
+            icon: 'none',
+            duration: 2000
+          })
+          app.globalData.is_self_location = false;
+          wx.switchTab({
+            url: '../jfxbdidx/idx'
+          })
+        } else {
+          wx.showToast({
+            title: '围栏设置失败,请重试',
+            icon: 'none',
+            duration: 2000
+          })
+        }
       })
     } else {
       wx.showToast({
