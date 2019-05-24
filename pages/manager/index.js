@@ -43,7 +43,7 @@ Page({
         })
       } else {
         for (let i = 0; i < tmpMems.length; i++) {
-          if (tmpMems[i].distance == 12395342) {
+          if (tmpMems[i].distance >= 12390000) {
             tmpMems[i].distance = '无信号';
           } else {
             tmpMems[i].distance = tmpMems[i].distance + '米';
