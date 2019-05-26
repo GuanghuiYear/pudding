@@ -100,10 +100,6 @@ Page({
     this.testScarBarCode();
   },
 
-  ctrlRefreshTapHandler: function(evt) {
-    // this.loadRailInfo();
-  },
-
   showRailsManager: function() {
     if (app.globalData.selGroup == null || !app.globalData.selGroup.id) {
       wx.showModal({
@@ -123,7 +119,7 @@ Page({
   },
 
   /* 生命周期函数--监听页面加载 */
-  onLoad: function(options) {
+  onLoad: function() {
     this.mapCtx = wx.createMapContext('map')
     var that = this
     // layout map control position.
@@ -309,10 +305,10 @@ Page({
 
   followRails: [], // 如果需要，此处改为map
   drawFlagRails: function() {
-    if (!app.globalData.selGroup || !app.globalData.selGroup.id) {
-      console.warn('none selected rails exist. stop draw rails')
-      return
-    }
+    // if (!app.globalData.selGroup || !app.globalData.selGroup.id) {
+    //   console.warn('none selected rails exist. stop draw rails')
+    //   return
+    // }
     // let railsData = app.globalData.selGroup.rails
     // if (!railsData) return
     // var cicles = []
@@ -381,7 +377,6 @@ Page({
   },
   /* 生命周期函数--监听页面显示*/
   onShow: function() {
-
     var that = this
     if (!app.globalData.selGroup) {
       this.loadOrgs(function() {
@@ -449,5 +444,95 @@ Page({
     wx.navigateTo({
       url: "../../pages/profile/viewtrace"
     })
+  },
+  controlRailStatus: function() {
+    if (app.globalData.rail_status) {
+      this.drawFlagRails();
+    } else {
+      this.setData({
+        circles: []
+      })
+    }
+    app.globalData.rail_status = !app.globalData.rail_status;
+  },
+  ctrlRefreshTapHandler: function() {
+    this.mapCtx = wx.createMapContext('map')
+    var that = this
+    // layout map control position.
+    var query = wx.createSelectorQuery();
+    query.select('#map').boundingClientRect(function (res) {
+      const destLayout = that.layoutMgControl({
+        width: res.width,
+        height: res.height
+      }, 20, that.data.mgctrlPositions);
+      that.setData({
+        mgctrlPositions: destLayout
+      });
+    }).exec();
+    // update header panel.(user icon, user name, and so on)
+    this.setData({
+      userIcon: app.globalData.userInfo.avatarUrl,
+      nickName: app.globalData.userInfo.nickName
+    })
+    // get mobile current location and update UI
+    wx.getLocation({
+      type: 'gcj02',
+      success: function (res) {
+        app.globalData.location = res
+        app.globalData.longitude = res.longitude;
+        app.globalData.latitude = res.latitude;
+        that.setData({
+          latitude: res.latitude,
+          longitude: res.longitude,
+          userLocation: res
+        })
+      },
+    })
+
+    var that = this
+    if (!app.globalData.selGroup) {
+      this.loadOrgs(function () {
+        if (!that.timer) {
+          that.startDevLoops()
+        }
+      })
+    } else {
+      let radius = 0;
+      if (typeof app.globalData.settingRail != undefined) {
+        radius = typeof app.globalData.settingRail.radius != undefined ? app.globalData.settingRail.radius : 0;
+      }
+      if ((!app.globalData.longitude && !app.globalData.latitude) || app.globalData.is_self_location) {
+        wx.getLocation({
+          type: 'gcj02',
+          success: function (res) {
+            app.globalData.location = res
+            console.log(res)
+            that.setData({
+              circles: radius > 0 ? [{
+                latitude: res.latitude,
+                longitude: res.longitude,
+                color: '#53E8AEDD',
+                fillColor: '#22C78915',
+                radius: radius,
+                strokeWidth: 1
+              }] : that.data.circles,
+              selGroup: app.globalData.selGroup
+            })
+          }
+        })
+      } else {
+        that.setData({
+          circles: radius > 0 ? [{
+            latitude: app.globalData.latitude,
+            longitude: app.globalData.longitude,
+            color: '#53E8AEDD',
+            fillColor: '#22C78915',
+            radius: radius,
+            strokeWidth: 1
+          }] : that.data.circles,
+          selGroup: app.globalData.selGroup
+        })
+      }
+    }
   }
 })

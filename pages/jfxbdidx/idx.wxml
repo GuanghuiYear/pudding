@@ -18,8 +18,8 @@
     <cover-view class='mapcontrol'>
       <cover-image id='mpCtrlRefresh' class="mapctrlitem" bindtap='ctrlRefreshTapHandler' src="/images/index_refresh_nomal_highlight@2x.png" />
       <cover-image id='mpCtrlPlace' class="mapctrlitem" bindtap='ctrlPlaceTapHandler' src="/images/index_place_nomal_highlight@2x.png" />
-      <cover-image id='mpCtrlRail' class="mapctrlitem" src="/images/index_enclosure_nomal_highlight@2x.png" />
-      <cover-image class="mapctrlitem" id='crutLocation' bindtap='showCrtLocation' src="/images/index_self_highlight@2x.png" />
+      <cover-image id='mpCtrlRail' class="mapctrlitem" bindtap='controlRailStatus' src="/images/index_enclosure_nomal_highlight@2x.png" />
+      <!-- <cover-image class="mapctrlitem" id='crutLocation' bindtap='showCrtLocation' src="/images/index_self_highlight@2x.png" /> -->
     </cover-view>
 
     <!-- <cover-image src="/images/index_set_trajectory@3x.png" 

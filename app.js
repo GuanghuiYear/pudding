@@ -12,7 +12,8 @@ App({
     },
     longitude: '',
     latitude: '',
-    is_self_location: true
+    is_self_location: true,
+    rail_status: true
   },
   onLaunch: function() {}
 })
