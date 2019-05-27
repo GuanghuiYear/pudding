@@ -1,17 +1,4 @@
-/* pages/profile/trace.wxss */
-
-
-
-.map_container{
-  position: absolute;
-  top: 0;
-  bottom: 0px;
-  left: 0;
-  right: 0;
-}
-.map{
-  width: 100%;
-  height: 100%;
-}
-
-@import "../../common/lib/weui.wxss"
+.map_container{position: absolute;top: 0;bottom: 0px;left: 0;right: 0;}
+.map{width: 100%;height: 100%;}
+.userlist{position: absolute;left: 30rpx;right: 30rpx;bottom: 30rpx;background: #ffffffaa;padding:20rpx 10rpx;border-radius: 20rpx;flex-wrap: wrap}
+.userlist .useritem{font-size: 20rpx;padding:8rpx 20rpx;width: 128rpx;white-space: nowrap;text-overflow: ellipsis;}

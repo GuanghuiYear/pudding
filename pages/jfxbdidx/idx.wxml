@@ -2,12 +2,15 @@
   <!-- bindregionchange='regionchangeHandler' -->
   <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" circles="{{circles}}" scale='14' include-points='{{inPoints}}' bindmarkertap='markerTouchHandler' bindcallouttap='markerTouchHandler' show-location="true" markers='{{markers}}'>
 
-    <cover-view class='titlepanel'>
+    <cover-view class='titlepanel flex-row f-just-bet'>
       <cover-image class="titleicon" src="{{userIcon}}" />
-      <cover-view class='titlename'>{{nickName}}</cover-view>
-      <cover-view class='titlegroup' bindtap='choiseGroup' decode='true'>{{selGroup.name}} > </cover-view>
-      <!-- 关联用户12个 在线12个 区域内12个 区域外12个 -->
-      <cover-view class="groupinfo"></cover-view>
+      <cover-view class="flex-column titleinfor">
+        <cover-view class="flex-row f-just-bet">
+          <cover-view class='titlename'>{{nickName}}</cover-view>
+          <cover-view class='titlegroup' bindtap='choiseGroup' decode='true'>{{selGroup.name}} > </cover-view>
+        </cover-view>
+        <cover-view class="groupinfo">关联用户12个 在线12个 区域内12个 区域外12个</cover-view>
+      </cover-view>
     </cover-view>
 
     <!--     <cover-view style="position:absolute;left:{{railCenterX}};top:{{railCenterY}};" >
