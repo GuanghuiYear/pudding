@@ -1,6 +1,6 @@
 <view class="map_container">
   <!-- bindregionchange='regionchangeHandler' -->
-  <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" circles="{{circles}}" scale='14' include-points='{{inPoints}}' bindmarkertap='markerTouchHandler' bindcallouttap='markerTouchHandler' show-location="true" markers='{{markers}}'>
+  <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" circles="{{circles}}" scale='14' include-points='{{inPoints}}' bindmarkertap='markerTouchHandler' polyline="{{polyline}}" bindcallouttap='markerTouchHandler' show-location="true" markers='{{markers}}'>
 
     <cover-view class='titlepanel flex-row f-just-bet'>
       <cover-image class="titleicon" src="{{userIcon}}" />

@@ -28,7 +28,8 @@ Page({
       lt: 0
     }], // binding data
     userLocation: null, // user current location
-    inPoints: [] // bind data
+    inPoints: [], // bind data
+    polyline: []
   },
 
   states: {
@@ -85,21 +86,55 @@ Page({
     }
     return m
   },
-
-  testScarBarCode: function() {
-    wx.scanCode({
-      success: (res) => {
-        wx.showToast({
-          title: res + ''
-        })
-      }
-    });
-  },
-
   ctrlPlaceTapHandler: function(evt) {
-    this.testScarBarCode();
+    let that = this;
+    console.log(app.globalData.pudding.mobile)
+    util.httpPost(app.globalData.requestUrl + '/bindings/search', { mobile: '18922443651'}, function (res) {
+      if (res.code == 200) {
+        if(res.data.total > 0) {
+          let binding_id = res.data.result[0].id;
+          let sdt = '2019-05-22' + "%20" + '00:00:00'.replace(":", "%3A")
+          let edt = '2019-05-27' + "%20" + '23:59:59'.replace(":", "%3A")
+          let requrl = app.globalData.baseUrl + '/bindings/' + binding_id + '/positions?start=' + sdt + '&end=' + edt;
+          util.httpGet(requrl, function (res) {
+            if (res.code == 200) {
+              if (res.data.length >= 2) {
+                let ps = []
+                let len = res.data.length;
+                ps.push({
+                  latitude: res.data[len-2].latitude,
+                  longitude: res.data[len-2].longitude,
+                });
+                ps.push({
+                  latitude: res.data[len - 1].latitude,
+                  longitude: res.data[len - 1].longitude,
+                });
+                that.setData({
+                  inPoints: ps,
+                  polyline: [{
+                    points: ps,
+                    color: '#EE2C2CAA',
+                    width: 6,
+                    arrowLine: true
+                  }]
+                })
+              } else {
+                wx.showToast({
+                  title: '该用户最近没有定位信息',
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '该用户没有绑定设备',
+            icon: 'none'
+          })
+        }
+      }
+    })
   },
-
   showRailsManager: function() {
     if (app.globalData.selGroup == null || !app.globalData.selGroup.id) {
       wx.showModal({

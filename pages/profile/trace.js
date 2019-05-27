@@ -18,6 +18,7 @@ Page({
     let gb = getApp().globalData
     let lp = gb.limithistory
     let ids_arr = options.ids.split(',');
+    console.log(666,ids_arr)
     let sdt = options.start_date + "%20" + options.start_time.replace(":", "%3A")
     let edt = options.end_date + "%20" + options.end_time.replace(":", "%3A")
     let requrl = '';
@@ -62,7 +63,6 @@ Page({
                 that.data.userList.push({ user_name: app.globalData.userList[i]['username'], color: colorArr[n] + 'AA'});
               }
             }
-            console.log(that.data.userList)
             n++;
             that.setData({
               inPoint: all_point,
