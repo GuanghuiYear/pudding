@@ -165,13 +165,15 @@ Page({
       this.setData({
         startDateTime: e.detail.value,
         start_date: ymd,
-        start_time: hms
+        start_time: hms,
+        isshowstart: true
       })
     } else {
       this.setData({
         endDateTime: e.detail.value,
         end_date: ymd,
-        end_time: hms
+        end_time: hms,
+        isshowend: true
       })
     }
   },

@@ -16,7 +16,6 @@
       </view>
       <view class="item-cells flex-row item-line f-just-bet">
         <text>起始时间</text>
-        <!-- <view wx:if="{{!isshowstart}}" bindtap="showdate" data-type='start'>请选择</view> -->
         <block>
           <view class="flex-row">
             <view class="date">
@@ -36,7 +35,6 @@
       </view>
       <view class="item-cells flex-row item-line f-just-bet">
         <text>结束时间</text>
-        <!-- <view wx:if="{{!isshowend}}" bindtap="showdate" data-type='end'>请选择</view> -->
         <block>
           <view class="flex-row">
             <view class="date">

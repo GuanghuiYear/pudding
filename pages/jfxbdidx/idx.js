@@ -88,8 +88,7 @@ Page({
   },
   ctrlPlaceTapHandler: function(evt) {
     let that = this;
-    console.log(app.globalData.pudding.mobile)
-    util.httpPost(app.globalData.requestUrl + '/bindings/search', { mobile: '18922443651'}, function (res) {
+    util.httpPost(app.globalData.requestUrl + '/bindings/search', { mobile: app.globalData.pudding.mobile}, function (res) {
       if (res.code == 200) {
         if(res.data.total > 0) {
           let binding_id = res.data.result[0].id;
@@ -471,11 +470,28 @@ Page({
   onShareAppMessage: function() {},
   /* 用户点击右上角分享 */
   patternSettingHandler: function() {
+    if (app.globalData.selGroup == null || !app.globalData.selGroup.id) {
+      wx.showModal({
+        title: '无法设置模式',
+        content: '您还没有加入任何组织，请联系组织管理者',
+        showCancel: false
+      })
+      return
+    }
+
     wx.navigateTo({
       url: "../../pages/pattern/pattern"
     })
   },
   viewTraceHandler: function() {
+    if (app.globalData.selGroup == null || !app.globalData.selGroup.id) {
+      wx.showModal({
+        title: '无法查看轨迹',
+        content: '您还没有加入任何组织，请联系组织管理者',
+        showCancel: false
+      })
+      return
+    }
     wx.navigateTo({
       url: "../../pages/profile/viewtrace"
     })
