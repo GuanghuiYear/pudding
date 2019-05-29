@@ -29,7 +29,8 @@ Page({
     }], // binding data
     userLocation: null, // user current location
     inPoints: [], // bind data
-    polyline: []
+    polyline: [],
+    isshowlastgps: true
   },
 
   states: {
@@ -88,7 +89,15 @@ Page({
   },
   ctrlPlaceTapHandler: function(evt) {
     let that = this;
-    util.httpPost(app.globalData.requestUrl + '/bindings/search', { mobile: app.globalData.pudding.mobile}, function (res) {
+    if(!this.data.isshowlastgps) {
+      that.setData({
+        inPoints: [],
+        polyline: [],
+        isshowlastgps: true
+      })
+    }
+
+    util.httpPost(app.globalData.requestUrl + '/bindings/search', { mobile: '18922443651'}, function (res) {
       if (res.code == 200) {
         if(res.data.total > 0) {
           let binding_id = res.data.result[0].id;
@@ -115,7 +124,8 @@ Page({
                     color: '#EE2C2CAA',
                     width: 6,
                     arrowLine: true
-                  }]
+                  }],
+                  isshowlastgps: false
                 })
               } else {
                 wx.showToast({
@@ -123,6 +133,11 @@ Page({
                   icon: 'none'
                 })
               }
+            } else {
+              wx.showToast({
+                title: '系统繁忙,请稍后再试',
+                icon: 'none'
+              })
             }
           })
         } else {
