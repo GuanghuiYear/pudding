@@ -14,6 +14,16 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+function getdate(AddDayCount){
+  var date=new Date();
+  date.setDate(date.getDate() + AddDayCount);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return [year, month, day].map(formatNumber).join('-');
+
+}
+
 function httpGet(url, success, fail) {
   wx.request({
     url: url,
@@ -63,5 +73,6 @@ module.exports = {
   formatTime: formatTime,
   httpGet: httpGet,
   httpPost: httpPost,
+  getdate: getdate,
   baseUrl: getApp().globalData.baseUrl
 }

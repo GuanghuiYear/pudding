@@ -101,8 +101,8 @@ Page({
       if (res.code == 200) {
         if(res.data.total > 0) {
           let binding_id = res.data.result[0].id;
-          let sdt = '2019-05-22' + "%20" + '00:00:00'.replace(":", "%3A")
-          let edt = '2019-05-27' + "%20" + '23:59:59'.replace(":", "%3A")
+          let sdt = util.getdate(-2) + "%20" + '00:00:00'.replace(":", "%3A")
+          let edt = util.getdate(0) + "%20" + '23:59:59'.replace(":", "%3A")
           let requrl = app.globalData.baseUrl + '/bindings/' + binding_id + '/positions?start=' + sdt + '&end=' + edt;
           util.httpGet(requrl, function (res) {
             if (res.code == 200) {
@@ -149,6 +149,7 @@ Page({
       }
     })
   },
+
   showRailsManager: function() {
     if (app.globalData.selGroup == null || !app.globalData.selGroup.id) {
       wx.showModal({
