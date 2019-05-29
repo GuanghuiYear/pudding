@@ -97,7 +97,7 @@ Page({
       })
     }
 
-    util.httpPost(app.globalData.requestUrl + '/bindings/search', { mobile: '18922443651'}, function (res) {
+    util.httpPost(app.globalData.requestUrl + '/bindings/search', { mobile: app.globalData.pudding.mobile}, function (res) {
       if (res.code == 200) {
         if(res.data.total > 0) {
           let binding_id = res.data.result[0].id;
@@ -174,7 +174,9 @@ Page({
     var that = this
     // layout map control position.
     var query = wx.createSelectorQuery();
+    console.log(111,query);
     query.select('#map').boundingClientRect(function(res) {
+      console.log(222,res)
       const destLayout = that.layoutMgControl({
         width: res.width,
         height: res.height
@@ -225,13 +227,11 @@ Page({
     var gd = app.globalData
     var that = this
     var gprequrl = gd.baseUrl + '/users/' + gd.pudding.id + '/organizations'
-    console.log("will request url:", gprequrl)
     wx.showLoading()
     wx.request({
       url: gprequrl,
       success: function(res) {
         wx.hideLoading()
-        console.log(res) // for debug
         if ((res.statusCode == 200 && res.statusCode < 300) && res.data.code == 200) {
           app.globalData.groups = res.data.data.groups
           if (app.globalData.groups == null || app.globalData.groups.length == 0) {
@@ -292,7 +292,6 @@ Page({
         return
       }
       let lpUrl = gb.baseUrl + '/organizations/' + g.id + '?uid=' + gb.pudding.id
-      console.log('will request url:', lpUrl, ', in loop service')
 
       wx.request({
         url: lpUrl,
@@ -427,9 +426,12 @@ Page({
   },
   /* 生命周期函数--监听页面显示*/
   onShow: function() {
+    this.init();
+  },
+  init: function() {
     var that = this
     if (!app.globalData.selGroup) {
-      this.loadOrgs(function() {
+      this.loadOrgs(function () {
         if (!that.timer) {
           that.startDevLoops()
         }
@@ -442,7 +444,7 @@ Page({
       if ((!app.globalData.longitude && !app.globalData.latitude) || app.globalData.is_self_location) {
         wx.getLocation({
           type: 'gcj02',
-          success: function(res) {
+          success: function (res) {
             app.globalData.location = res
             console.log(res)
             that.setData({
@@ -556,50 +558,6 @@ Page({
       },
     })
 
-    var that = this
-    if (!app.globalData.selGroup) {
-      this.loadOrgs(function () {
-        if (!that.timer) {
-          that.startDevLoops()
-        }
-      })
-    } else {
-      let radius = 0;
-      if (typeof app.globalData.settingRail != undefined) {
-        radius = typeof app.globalData.settingRail.radius != undefined ? app.globalData.settingRail.radius : 0;
-      }
-      if ((!app.globalData.longitude && !app.globalData.latitude) || app.globalData.is_self_location) {
-        wx.getLocation({
-          type: 'gcj02',
-          success: function (res) {
-            app.globalData.location = res
-            console.log(res)
-            that.setData({
-              circles: radius > 0 ? [{
-                latitude: res.latitude,
-                longitude: res.longitude,
-                color: '#53E8AEDD',
-                fillColor: '#22C78915',
-                radius: radius,
-                strokeWidth: 1
-              }] : that.data.circles,
-              selGroup: app.globalData.selGroup
-            })
-          }
-        })
-      } else {
-        that.setData({
-          circles: radius > 0 ? [{
-            latitude: app.globalData.latitude,
-            longitude: app.globalData.longitude,
-            color: '#53E8AEDD',
-            fillColor: '#22C78915',
-            radius: radius,
-            strokeWidth: 1
-          }] : that.data.circles,
-          selGroup: app.globalData.selGroup
-        })
-      }
-    }
+    this.init();
   }
 })
