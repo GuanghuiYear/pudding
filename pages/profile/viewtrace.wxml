@@ -18,21 +18,16 @@
   <form bindsubmit='formSubmit'>
     <view class="item-list flex-column bgw martb">
       <view class="item-cells flex-row item-line f-just-bet">
-        <text>选择日期</text>
+        <text>选择日期时间</text>
       </view>
       <view class="item-cells flex-row item-line f-just-bet">
-        <text>起始时间</text>
+        <text>日期</text>
         <block>
           <view class="flex-row">
             <view class="date">
-              <picker mode="multiSelector" value="{{startDateTime}}" data-type='start' bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range='{{dateTimeArray}}'>
+              <picker mode="date" value="{{select_date}}" start="2018-09-01" end="2100-09-01" bindchange="bindDateChange">
                 <view class="picker">
-                  <block wx:if="{{!isshowstart}}">
-                    请选择
-                  </block>
-                  <block wx:else>
-                    {{dateTimeArray[0][startDateTime[0]]}}-{{dateTimeArray[1][startDateTime[1]]}}-{{dateTimeArray[2][startDateTime[2]]}} {{dateTimeArray[3][startDateTime[3]]}}:{{dateTimeArray[4][startDateTime[4]]}}:{{dateTimeArray[5][startDateTime[5]]}}
-                  </block>
+                  {{select_date}}
                 </view>
               </picker>
             </view>
@@ -40,18 +35,18 @@
         </block>
       </view>
       <view class="item-cells flex-row item-line f-just-bet">
-        <text>结束时间</text>
+        <text>时间</text>
         <block>
           <view class="flex-row">
             <view class="date">
-              <picker mode="multiSelector" value="{{endDateTime}}" data-type='end' bindchange="changeDateTime" bindcolumnchange="changeDateTimeColumn" range='{{dateTimeArray}}'>
+              <picker mode="time" value="{{start_time}}" data-type='start' start="00:00" end="23:59" bindchange="bindTimeChange">
                 <view class="picker">
-                  <block wx:if="{{!isshowend}}">
-                    请选择
-                  </block>
-                  <block wx:else>
-                    {{dateTimeArray[0][endDateTime[0]]}}-{{dateTimeArray[1][endDateTime[1]]}}-{{dateTimeArray[2][endDateTime[2]]}} {{dateTimeArray[3][endDateTime[3]]}}:{{dateTimeArray[4][endDateTime[4]]}}:{{dateTimeArray[5][endDateTime[5]]}}
-                  </block>
+                  开始时间: {{start_time}}
+                </view>
+              </picker>
+              <picker mode="time" value="{{end_time}}" data-type='end' start="00:00" end="23:59" bindchange="bindTimeChange">
+                <view class="picker">
+                  结束时间: {{end_time}}
                 </view>
               </picker>
             </view>
