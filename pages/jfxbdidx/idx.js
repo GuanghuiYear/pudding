@@ -30,7 +30,9 @@ Page({
     userLocation: null, // user current location
     inPoints: [], // bind data
     polyline: [],
-    isshowlastgps: true
+    isshowlastgps: true,
+    isOpenLastLocation: false,
+    isCloseRail: false
   },
 
   states: {
@@ -87,14 +89,17 @@ Page({
     }
     return m
   },
+  
   ctrlPlaceTapHandler: function(evt) {
     let that = this;
     if(!this.data.isshowlastgps) {
       that.setData({
         inPoints: [],
         polyline: [],
-        isshowlastgps: true
+        isshowlastgps: true,
+        isOpenLastLocation: false
       })
+      return false;
     }
 
     util.httpPost(app.globalData.requestUrl + '/bindings/search', { mobile: app.globalData.pudding.mobile}, function (res) {
@@ -125,7 +130,8 @@ Page({
                     width: 6,
                     arrowLine: true
                   }],
-                  isshowlastgps: false
+                  isshowlastgps: false,
+                  isOpenLastLocation: true
                 })
               } else {
                 wx.showToast({
@@ -174,9 +180,7 @@ Page({
     var that = this
     // layout map control position.
     var query = wx.createSelectorQuery();
-    console.log(111,query);
     query.select('#map').boundingClientRect(function(res) {
-      console.log(222,res)
       const destLayout = that.layoutMgControl({
         width: res.width,
         height: res.height
@@ -297,12 +301,14 @@ Page({
         url: lpUrl,
         method: 'GET',
         success: function(res) {
+          console.log(555,res)
           if (res.data && (res.data.code == 200)) { // success
             g.rails = res.data.data.rails
             g.children = res.data.data.children
             app.globalData.longitude = res.data.data.rail.longitude;
             app.globalData.latitude  = res.data.data.rail.latitude;
             app.globalData.settingRail.radius = res.data.data.rail.radius;
+            app.globalData.is_self_location = res.data.data.rail.type == 1 ? false : true;
             that.drawFlagRails()
             that.showDevicesMark()
             that.showAllPoints()
@@ -379,7 +385,8 @@ Page({
         fillColor: '#22C78915',
         radius: app.globalData.settingRail.radius,
         strokeWidth: 1
-      }]
+      }],
+      isCloseRail: false
     })
   },
 
@@ -519,45 +526,31 @@ Page({
       this.drawFlagRails();
     } else {
       this.setData({
-        circles: []
+        circles: [],
+        isCloseRail: true
       })
     }
     app.globalData.rail_status = !app.globalData.rail_status;
   },
   ctrlRefreshTapHandler: function() {
-    this.mapCtx = wx.createMapContext('map')
+    // this.mapCtx = wx.createMapContext('map')
     var that = this
     // layout map control position.
-    var query = wx.createSelectorQuery();
-    query.select('#map').boundingClientRect(function (res) {
-      const destLayout = that.layoutMgControl({
-        width: res.width,
-        height: res.height
-      }, 20, that.data.mgctrlPositions);
-      that.setData({
-        mgctrlPositions: destLayout
-      });
-    }).exec();
-    // update header panel.(user icon, user name, and so on)
-    this.setData({
-      userIcon: app.globalData.userInfo.avatarUrl,
-      nickName: app.globalData.userInfo.nickName
-    })
-    // get mobile current location and update UI
-    wx.getLocation({
-      type: 'gcj02',
-      success: function (res) {
-        app.globalData.location = res
-        app.globalData.longitude = res.longitude;
-        app.globalData.latitude = res.latitude;
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
-          userLocation: res
-        })
-      },
-    })
-
+    // var query = wx.createSelectorQuery();
+    // query.select('#map').boundingClientRect(function (res) {
+    //   const destLayout = that.layoutMgControl({
+    //     width: res.width,
+    //     height: res.height
+    //   }, 20, that.data.mgctrlPositions);
+    //   that.setData({
+    //     mgctrlPositions: destLayout
+    //   });
+    // }).exec();
+    // // update header panel.(user icon, user name, and so on)
+    // this.setData({
+    //   userIcon: app.globalData.userInfo.avatarUrl,
+    //   nickName: app.globalData.userInfo.nickName
+    // })
     this.init();
   }
 })

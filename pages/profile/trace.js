@@ -18,7 +18,6 @@ Page({
     let gb = getApp().globalData
     let lp = gb.limithistory
     let ids_arr = options.ids.split(',');
-    console.log(666,ids_arr)
     let sdt = options.start_date + "%20" + options.start_time.replace(":", "%3A")
     let edt = options.end_date + "%20" + options.end_time.replace(":", "%3A")
     let requrl = '';
@@ -35,9 +34,12 @@ Page({
       let random = colorArr[n];
       randomColorArr.push(random);
       labLen--;
-    } while (labLen > 0)
-
-    wx.showLoading()
+    } while (labLen > 0);
+    wx.showToast({
+      title: '正在加载中,请稍等',
+      icon: 'none'
+    })
+    
     for(var index in ids_arr) {
       requrl = gb.baseUrl + '/bindings/' + ids_arr[index] + '/positions?start=' + sdt + '&end=' + edt;
       util.httpGet(requrl,function (res) {
@@ -64,18 +66,33 @@ Page({
               }
             }
             n++;
-            that.setData({
-              inPoint: all_point,
-              plypath1: polyline,
-              userList: that.data.userList
+            wx.showToast({
+              title: '加载完成',
+              icon: 'none'
+            })
+            console.log(all_point)
+            if (all_point.length > 0) {
+              that.setData({
+                inPoint: all_point,
+                plypath1: polyline,
+                userList: that.data.userList,
+              })
+            } else {
+              wx.showToast({
+                title: '没有定位信息',
+                icon: 'none'
+              })
+            }
+          } else {
+            wx.showToast({
+              title: '没有定位信息',
+              icon: 'none'
             })
           }
         }
       })
     }
-    wx.hideLoading()
   },
-
   onLoad: function (options) {
     if (this.data.plypath1.length <= 0) {
       this.requestTrace(options)

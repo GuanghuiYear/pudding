@@ -16,7 +16,7 @@
 						<image class="pd-1l-ctrl-item" src='/images/admin_phone@2x.png' 
               bindtap='phoneCallHandler' data-mobile="{{m.mobile}}" ></image> 
               <!-- data-mid='{{}}' -->
-						<image class="pd-1l-ctrl-item" src='/images/admin_details@2x.png' bindtap='itemTouch'></image>
+						<image class="pd-1l-ctrl-item" src='/images/admin_details@2x.png' data-id='{{m.user_id}}' bindtap='itemTouch'></image>
 					</view>
 				</view>
 			</view>

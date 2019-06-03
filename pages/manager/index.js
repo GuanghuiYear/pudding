@@ -7,9 +7,10 @@ Page({
     isEmptyPage: true
   },
 
-  itemTouch: function(evt) {
+  itemTouch: function(e) {
+    let id = e.target.dataset.id;
     wx.navigateTo({
-      url: '../../pages/manager/personprofile',
+      url: '../../pages/manager/personprofile?id=' + id,
     })
   },
 
@@ -29,7 +30,6 @@ Page({
     let lat = gb.location.latitude
 
     var url = gb.baseUrl + '/organizations/' + gid + '/group?parent=' + pid + '&lng=' + lng + '&lat=' + lat;
-    console.log(url);
 
     let that = this
     wx.showLoading();
