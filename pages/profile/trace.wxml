@@ -1,8 +1,15 @@
 <view class='map_container'>
   <!-- polyline="{{plypath1}}" -->
   <map class='map' id="traceMap" markers="{{ms}}" include-points="{{inPoint}}" polyline="{{plypath1}}">
-    <cover-view wx:for="{{userList}}" wx:key="key" wx:for-index="key" wx:for-item="v" class="flex-row userlist">
+    <cover-view wx:for="{{userList}}" wx:key="key" wx:for-index="key" wx:for-item="v" class="flex-column userlist">
       <cover-view style="color: {{v.color}};" class="useritem">{{v.user_name}}</cover-view>
+      <cover-view style="color: {{v.color}};" class="useritem">{{v.user_name}}</cover-view>
+      <cover-view style="color: {{v.color}};" class="useritem">{{v.user_name}}</cover-view>
+      <cover-view style="color: {{v.color}};" class="useritem">{{v.user_name}}</cover-view>
+      <cover-view style="color: {{v.color}};" class="useritem">{{v.user_name}}</cover-view>
+      <cover-view style="color: {{v.color}};" class="useritem">{{v.user_name}}</cover-view>
+      <cover-view style="color: {{v.color}};" class="useritem">{{v.user_name}}</cover-view>
+      <cover-view style="color: {{v.color}};" class="useritem">{{v.user_name}}{{v.user_name}}</cover-view>
     </cover-view>
   </map>
 </view>
