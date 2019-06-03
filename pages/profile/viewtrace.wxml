@@ -3,10 +3,19 @@
     <view class="item-cells flex-row item-line">
       <text>选择用户</text>
     </view>
-    <view class="item-cells flex-row item-line center" wx:for="{{user_info}}" wx-for-item="{{item}}" wx:key='{{index}}'>
+    <!-- <view class="item-cells flex-row item-line center" wx:for="{{user_info}}" wx-for-item="{{item}}" wx:key='{{index}}'>
       <image src='/images/user_del@2x.png' class="user_del" data-index='{{index}}' bindtap='removeUser'></image>
       <text>{{item.username}}</text>
-    </view>
+    </view> -->
+
+    <checkbox-group class="flex-column item-list">
+      <label wx:for="{{user_info}}" wx-for-item="{{item}}" wx:key='{{index}}' class="flex-row item-cells item-line checkboxstyle center">
+        <checkbox value="{{item.username}}" class="item-checkbox"></checkbox>{{item.username}}
+      </label>
+      <label wx:for="{{user_info}}" wx-for-item="{{item}}" wx:key='{{index}}' class="flex-row item-cells item-line checkboxstyle center">
+        <checkbox value="{{item.username}}" class="item-checkbox"></checkbox>{{item.username}}
+      </label>
+    </checkbox-group>
   </view>
 
   <form bindsubmit='formSubmit'>

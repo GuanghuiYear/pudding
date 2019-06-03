@@ -14,6 +14,12 @@
 .radiostyle radio .wx-radio-input{height: 32rpx; width: 32rpx;margin-top: -4rpx;border-radius: 50%;border: 2rpx solid #E1E1E1;background: transparent;}
 .radiostyle radio .wx-radio-input.wx-radio-input-checked::before{text-align: center;
 font-size:30rpx;color:#fff;}
+
+.checkboxstyle checkbox .wx-checkbox-input{height: 32rpx; width: 32rpx;margin-top: -4rpx;border-radius: 50%;border: 2rpx solid #E1E1E1;background: transparent;}
+.checkboxstyle checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{text-align: center;
+font-size:30rpx;color:#fff;width:30rpx;height: 30rpx;}
+.checkboxstyle checkbox .wx-checkbox-input.wx-checkbox-input-checked{background: #22C789;border-color:#22C789;}
+
 .center{align-items: center;}
 .f-just-bet{justify-content:space-between;}
 .txt-right{text-align: right;}
