@@ -8,12 +8,9 @@
       <text>{{item.username}}</text>
     </view> -->
 
-    <checkbox-group class="flex-column item-list">
+    <checkbox-group class="flex-column item-list" bindchange="checkboxChange">
       <label wx:for="{{user_info}}" wx-for-item="{{item}}" wx:key='{{index}}' class="flex-row item-cells item-line checkboxstyle center">
-        <checkbox value="{{item.username}}" class="item-checkbox"></checkbox>{{item.username}}
-      </label>
-      <label wx:for="{{user_info}}" wx-for-item="{{item}}" wx:key='{{index}}' class="flex-row item-cells item-line checkboxstyle center">
-        <checkbox value="{{item.username}}" class="item-checkbox"></checkbox>{{item.username}}
+        <checkbox value="{{index}}" class="item-checkbox"></checkbox>{{item.username}}
       </label>
     </checkbox-group>
   </view>

@@ -14,7 +14,8 @@ Page({
     user_info: [],
     dateTimeArray: [],
     startDateTime: [],
-    endDateTime: []
+    endDateTime: [],
+    binding_ids: ''
   },
   onLoad: function(options) {
     var that = this;
@@ -208,5 +209,23 @@ Page({
         isshowend: true
       });
     }
+  },
+  checkboxChange: function (e) {
+    let arr = e.detail.value;
+    if(arr.length == 0) {
+      wx.showToast({
+        title: '请选择用户',
+        icon: 'none'
+      })
+      return false;
+    }
+    let ids = '';
+    for (let i = 0; i < arr.length; i++) {
+      ids += this.data.user_info[arr[i]].binding_id + ',';
+    }
+    ids = ids.substring(0, ids.length - 1);
+    this.setData({
+      binding_ids: ids
+    });
   }
 })
