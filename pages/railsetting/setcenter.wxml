@@ -1,18 +1,13 @@
 <view class="map_container">
-<map id="map" longitude="113.36199" latitude="23.12463" scale="14" bindcontroltap="controltap" polygons="{{polygons}}" bindregionchange="regionchange" markers="{{markers}}" bindmarkertap="markertap" show-location style="width: 100%; height: 100%;">
-
+  <map id="map" class="map" longitude="113.36199" latitude="23.12463" scale="14" bindcontroltap="controltap" polygons="{{polygons}}" bindregionchange="regionchange" markers="{{markers}}" bindmarkertap="markertap" show-location>
     <cover-view class='mapcontrol'>
-      <cover-image id='mpCtrlRail' class="mapctrlitem" bindtap='setRadiusHandler'
-        src="/images/index_enclosure_nomal_highlight@2x.png"></cover-image>
-      <cover-view style="font-size: 12px; color: gray;">围栏</cover-view>
-      <cover-image class="mapctrlitem" 
-        src="/images/index_self_highlight@2x.png"></cover-image>
-      <cover-view style="font-size: 12px; color: gray;">我的</cover-view>             
+      <cover-image id='mpCtrlRail' class="mapctrlitem" bindtap='setRadiusHandler' src="/images/index_enclosure_nomal_highlight@2x.png"></cover-image>
+      <cover-view class="tit">围栏</cover-view>
+      <cover-image class="mapctrlitem" src="/images/index_self_highlight@2x.png"></cover-image>
+      <cover-view class="tit">我的</cover-view>
     </cover-view>
-
-    <cover-view class="submit-btn"> 
-      <button class="weui-btn" bindtap="commitHandler"
-        style="color:white; background-color: #179B16A9;border-radius:15px;">提交</button>
+    <cover-view class="submit-btn">
+      <button class=" btn btn-bggreen btn-reset" bindtap="commitHandler">提交</button>
     </cover-view>
-</map>
+  </map>
 </view>
