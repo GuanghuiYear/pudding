@@ -55,7 +55,7 @@ Page({
       if (currentTime <= 0) {
         clearInterval(interval)
         that.setData({
-          codename: '重新获取',
+          codename: '获取验证码',
           currentTime: 60,
           codestatus: false
         })
@@ -68,7 +68,7 @@ Page({
     this.setData({
       codestatus: !this.data.codestatus,
     });
-    if (this.data.btncodesend > 0) {
+    if (this.data.btncodesend > 0 && this.data.codename == '获取验证码') {
       this.setData({
         vCodeDisabled: false,
       })
