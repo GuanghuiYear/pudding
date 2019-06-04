@@ -38,15 +38,16 @@
         <text>时间</text>
         <block>
           <view class="flex-row">
-            <view class="date">
+            <view class="date flex-row">
               <picker mode="time" value="{{start_time}}" data-type='start' start="00:00" end="23:59" bindchange="bindTimeChange">
                 <view class="picker">
-                  开始时间: {{start_time}}
+                  {{start_time}}
                 </view>
               </picker>
+              <view>~</view>
               <picker mode="time" value="{{end_time}}" data-type='end' start="00:00" end="23:59" bindchange="bindTimeChange">
                 <view class="picker">
-                  结束时间: {{end_time}}
+                  {{end_time}}
                 </view>
               </picker>
             </view>

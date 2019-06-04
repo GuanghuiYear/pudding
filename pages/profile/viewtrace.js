@@ -3,8 +3,8 @@ var app = getApp();
 Page({
   data: {
     select_date: '',
-    start_time: '',
-    end_time: '',
+    start_time: '00:00',
+    end_time: '23:59',
     user_info: [],
     binding_ids: ''
   },
