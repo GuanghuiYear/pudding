@@ -360,23 +360,6 @@ Page({
 
   followRails: [], // 如果需要，此处改为map
   drawFlagRails: function() {
-    // if (!app.globalData.selGroup || !app.globalData.selGroup.id) {
-    //   console.warn('none selected rails exist. stop draw rails')
-    //   return
-    // }
-    // let railsData = app.globalData.selGroup.rails
-    // if (!railsData) return
-    // var cicles = []
-    // this.followRails = []
-    // for (var i = 0; i < railsData.length; i++) {
-    //   let rd = railsData[i]
-    //   if (rd.type == 2) {
-    //     this.followRails.push(rd)
-    //     cicles.push(this.getCicleData(this.data, rd.radius))
-    //   } else {
-    //     cicles.push(this.getCicleData(rd, rd.radius))
-    //   }
-    // }
     this.setData({
       ['circles']: [{
         latitude: app.globalData.latitude,
@@ -429,7 +412,6 @@ Page({
   /* 生命周期函数--监听页面初次渲染完成 */
   onReady: function() {
     this.tAnm = wx.createAnimation();
-    // this.animations = [wx.createAnimation(),wx.createAnimation(),wx.createAnimation(),wx.createAnimation()];
   },
   /* 生命周期函数--监听页面显示*/
   onShow: function() {

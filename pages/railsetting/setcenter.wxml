@@ -1,8 +1,5 @@
 <view class="map_container">
 <map id="map" longitude="113.36199" latitude="23.12463" scale="14" bindcontroltap="controltap" polygons="{{polygons}}" bindregionchange="regionchange" markers="{{markers}}" bindmarkertap="markertap" show-location style="width: 100%; height: 100%;">
-<!-- <cover-view style="position:absolute;left:{{railCenterX}};top:{{railCenterY}};" >
-      <cover-image id='centerMarker' class='cover-image' src='/images/location.png'></cover-image>
-    </cover-view> -->
 
     <cover-view class='mapcontrol'>
       <cover-image id='mpCtrlRail' class="mapctrlitem" bindtap='setRadiusHandler'
@@ -19,32 +16,3 @@
     </cover-view>
 </map>
 </view>
-<!-- <view class="map_container">
-  <map class="map" id="railMap" 
-  	longitude="{{longitude}}" 
-  	latitude="{{latitude}}" 
-  	circles="{{circles}}"
-  	markers="{{markers}}"
-    show-location="true"
-  	scale='14'
-  >
-  	<cover-view style="position:absolute;left:{{railCenterX}};top:{{railCenterY}};" >
-      <cover-image id='centerMarker' class='cover-image' src='/images/location.png'></cover-image>
-    </cover-view>
-
-    <cover-view class='mapcontrol'>
-      <cover-image id='mpCtrlRail' class="mapctrlitem" bindtap='setRadiusHandler'
-        src="/images/index_enclosure_nomal_highlight@2x.png"></cover-image>
-      <cover-view style="font-size: 12px; color: gray;">围栏</cover-view>
-      <cover-image class="mapctrlitem" 
-        src="/images/index_self_highlight@2x.png"></cover-image>
-      <cover-view style="font-size: 12px; color: gray;">我的</cover-view>             
-    </cover-view>
-
-    <cover-view class="submit-btn"> 
-      <button class="weui-btn" bindtap="commitCenterHandler"
-        style="color:white; background-color: #179B16A9;border-radius:15px;">提交</button>
-    </cover-view>
-  </map>
-</view>
-  -->
