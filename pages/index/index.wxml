@@ -20,7 +20,7 @@
       <view class=" item-cells item-line" hidden="{{showBindMobile}}">
         <label for="iptCode">验证码</label>
         <view class="flex-row">
-          <input id="iptCode" placeholder="请输入验证码" value="{{vCode}}" bindinput="iptCodeInput" disabled="{{vCodeDisabled}}"/>
+          <input id="iptCode" placeholder="请输入验证码" value="{{vCode}}" bindinput="iptCodeInput" />
           <button type="button" class="btn-reset btncode {{btncodesend>0 ?'btn-bggreen':''}}" bindtap="reqCodeHandler" disabled="{{codestatus}}">{{codename}}</button>
         </view>
       </view>

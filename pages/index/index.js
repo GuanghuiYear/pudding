@@ -12,7 +12,6 @@ Page({
     showBindMobile: true,
     btncodesend: 0,
     btnnextclick: 0,
-    vCodeDisabled: true,
     codename: '获取验证码',
     currentTime:60,
     codestatus:true,
@@ -45,7 +44,7 @@ Page({
     var that = this;
     var currentTime = that.data.currentTime;
     that.setData({
-      codename: currentTime + '秒'
+      codename: currentTime + '秒',
     })
     let interval = setInterval(function() {
       that.setData({
@@ -64,45 +63,42 @@ Page({
   },
 
   reqCodeHandler: function(evt) {
-    this.Countdown();
-    this.setData({
-      codestatus: !this.data.codestatus,
-    });
-    if (this.data.btncodesend > 0 && this.data.codename == '获取验证码') {
-      this.setData({
-        vCodeDisabled: false,
-      })
-      var actionUrl = app.globalData.baseUrl + '/users/verify'
-      // lastVerifyRequest = new Date()
-      wx.request({
-        url: actionUrl,
-        header: {
-          'content-type': 'application/json'
-        },
-        data: {
-          mobile: this.data.mobile
-        },
-        method: 'POST',
-        success: function(res) {
-          console.log("verify code request api get response")
-          console.log(res)
-          if (res.statusCode >= 200 && res.statusCode < 300 && res.data.code >= 200 && res.data.code < 300) {
-            wx.showToast({
-              icon: "none",
-              title: "已发送短信",
-              duration: 3000
-            })
-          } else {
-            wx.showToast({
-              icon: "none",
-              title: res.data.msg,
-              duration: 3000
-            })
+    if (!this.data.codestatus) {
+      if (this.data.btncodesend > 0 && this.data.codename == '获取验证码') {
+        var actionUrl = app.globalData.baseUrl + '/users/verify'
+        wx.request({
+          url: actionUrl,
+          header: {
+            'content-type': 'application/json'
+          },
+          data: {
+            mobile: this.data.mobile
+          },
+          method: 'POST',
+          success: function (res) {
+            console.log("verify code request api get response")
+            console.log(res)
+            if (res.statusCode >= 200 && res.statusCode < 300 && res.data.code >= 200 && res.data.code < 300) {
+              wx.showToast({
+                icon: "none",
+                title: "已发送短信",
+                duration: 3000
+              })
+            } else {
+              wx.showToast({
+                icon: "none",
+                title: res.data.msg,
+                duration: 3000
+              })
+            }
           }
-        }
-      })
+        })
+      }
+      this.setData({
+        codestatus: true
+      });
+      this.Countdown();
     }
-
   },
 
   iptCodeInput: function(evt) {
@@ -119,6 +115,20 @@ Page({
   },
 
   bindSubmitHandler: function(evt) {
+    if(this.data.mobile.length != 11) {
+      wx.showToast({
+        title: '手机号码不正确',
+        icon: 'none'
+      })
+      return false;
+    } 
+    if (this.data.vCode.length <= 0) {
+      wx.showToast({
+        title: '请输入验证码',
+        icon: 'none'
+      })
+      return false;
+    } 
 
     var that = this
     var reqParam = {
@@ -238,8 +248,12 @@ Page({
     if (this.isMobile(this.data.mobile)) {
       this.setData({
         btncodesend: 1,
-        codestatus: false,
       })
+      if (this.data.codename == '获取验证码') {
+        this.setData({
+          codestatus: false
+        })
+      }
     } else {
       this.setData({
         btncodesend: 0,
