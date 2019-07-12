@@ -437,29 +437,33 @@ Page({
             app.globalData.location = res
             console.log(res)
             that.setData({
-              circles: radius > 0 ? [{
-                latitude: res.latitude,
-                longitude: res.longitude,
-                color: '#53E8AEDD',
-                fillColor: '#22C78915',
-                radius: radius,
-                strokeWidth: 1
-              }] : that.data.circles,
-              selGroup: app.globalData.selGroup
+              // circles: radius > 0 ? [{
+              //   latitude: res.latitude,
+              //   longitude: res.longitude,
+              //   color: '#53E8AEDD',
+              //   fillColor: '#22C78915',
+              //   radius: radius,
+              //   strokeWidth: 1
+              // }] : that.data.circles,
+              selGroup: app.globalData.selGroup,
+              circles: [],
+              isCloseRail: true
             })
           }
         })
       } else {
         that.setData({
-          circles: radius > 0 ? [{
-            latitude: app.globalData.latitude,
-            longitude: app.globalData.longitude,
-            color: '#53E8AEDD',
-            fillColor: '#22C78915',
-            radius: radius,
-            strokeWidth: 1
-          }] : that.data.circles,
-          selGroup: app.globalData.selGroup
+          // circles: radius > 0 ? [{
+          //   latitude: app.globalData.latitude,
+          //   longitude: app.globalData.longitude,
+          //   color: '#53E8AEDD',
+          //   fillColor: '#22C78915',
+          //   radius: radius,
+          //   strokeWidth: 1
+          // }] : that.data.circles,
+          selGroup: app.globalData.selGroup,
+          circles: [],
+          isCloseRail: true
         })
       }
     }
