@@ -9,7 +9,7 @@
           <cover-view class='titlename'>{{nickName}}</cover-view>
           <cover-view class='titlegroup' bindtap='choiseGroup' decode='true'>{{selGroup.name}} > </cover-view>
         </cover-view>
-        <cover-view class="groupinfo">关联用户12个 在线12个 区域内12个 区域外12个</cover-view>
+        <!-- <cover-view class="groupinfo">关联用户12个 在线12个 区域内12个 区域外12个</cover-view> -->
       </cover-view>
     </cover-view>
 
