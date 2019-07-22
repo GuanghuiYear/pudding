@@ -237,7 +237,7 @@ Page({
       success: function(res) {
         wx.hideLoading()
         if ((res.statusCode == 200 && res.statusCode < 300) && res.data.code == 200) {
-          app.globalData.groups = res.data.data.groups
+          app.globalData.groups = res.data.data.groups;
           if (app.globalData.groups == null || app.globalData.groups.length == 0) {
             return
           }
@@ -301,10 +301,9 @@ Page({
         url: lpUrl,
         method: 'GET',
         success: function(res) {
-          console.log(555,res)
           if (res.data && (res.data.code == 200)) { // success
             g.rails = res.data.data.rails
-            g.children = res.data.data.children
+            g.children = res.data.data.members
             app.globalData.longitude = res.data.data.rail.longitude;
             app.globalData.latitude  = res.data.data.rail.latitude;
             app.globalData.settingRail.radius = res.data.data.rail.radius;
@@ -418,7 +417,10 @@ Page({
     this.init();
   },
   init: function() {
-    var that = this
+    var that = this;
+    wx.showLoading({
+      title: '刷新中',
+    });
     if (!app.globalData.selGroup) {
       this.loadOrgs(function () {
         if (!that.timer) {
@@ -463,6 +465,9 @@ Page({
         })
       }
     }
+    setTimeout(function() {
+      wx.hideLoading();
+    },500);
   },
   /* 生命周期函数--监听页面隐藏*/
   onHide: function() {
@@ -516,7 +521,7 @@ Page({
   },
   ctrlRefreshTapHandler: function() {
     // this.mapCtx = wx.createMapContext('map')
-    var that = this
+    var that = this;
     // layout map control position.
     // var query = wx.createSelectorQuery();
     // query.select('#map').boundingClientRect(function (res) {
