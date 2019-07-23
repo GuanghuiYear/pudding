@@ -14,8 +14,7 @@ Page({
     that.setData({
       select_date: ymd
     });
-    // app.globalData.pudding.id
-    util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=' + 31 + '&lng=' + app.globalData.longitude + '&lat=' + app.globalData.latitude, function(res) {
+    util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=' + app.globalData.pudding.id + '&lng=' + app.globalData.longitude + '&lat=' + app.globalData.latitude, function(res) {
       if (res.code == 200) {
         that.setData({
           user_info: res.data
