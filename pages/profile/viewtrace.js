@@ -9,13 +9,13 @@ Page({
     binding_ids: ''
   },
   onLoad: function(options) {
-    console.log(app.globalData)
     var that = this;
     let ymd = util.getdate(0);
     that.setData({
       select_date: ymd
     });
-    util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=' + app.globalData.pudding.id + '&lng=' + app.globalData.longitude + '&lat=' + app.globalData.latitude, function(res) {
+    // app.globalData.pudding.id
+    util.httpGet(app.globalData.baseUrl + '/organizations/' + app.globalData.selGroup.id + '/group?parent=' + 31 + '&lng=' + app.globalData.longitude + '&lat=' + app.globalData.latitude, function(res) {
       if (res.code == 200) {
         that.setData({
           user_info: res.data
@@ -24,7 +24,6 @@ Page({
     })
   },
   bindDateChange(e) {
-    console.log(e)
     this.setData({
       select_date: e.detail.value
     })

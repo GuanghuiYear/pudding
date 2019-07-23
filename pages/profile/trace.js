@@ -39,9 +39,10 @@ Page({
       title: '正在加载中,请稍等',
       icon: 'none'
     })
-    
+
     for(var index in ids_arr) {
-      requrl = gb.baseUrl + '/bindings/' + ids_arr[index] + '/positions?start=' + sdt + '&end=' + edt;
+      let _ids = ids_arr[index];
+      requrl = gb.baseUrl + '/bindings/' + _ids + '/positions?start=' + sdt + '&end=' + edt;
       util.httpGet(requrl,function (res) {
         if (res.code == 200) {
           if(res.data.length > 0) {
@@ -60,29 +61,24 @@ Page({
               width: 6,
               arrowLine: true
             });
-            for (let i = 0; i < app.globalData.userList.length; i++) {
-              if (app.globalData.userList[i]['binding_id'] == ids_arr[index]) {
-                that.data.userList.push({ user_name: app.globalData.userList[i]['username'], color: colorArr[n] + 'AA'});
-              }
-            }
-            n++;
+            
             wx.showToast({
               title: '加载完成',
               icon: 'none'
             })
-            console.log(all_point)
-            if (all_point.length > 0) {
-              that.setData({
-                inPoint: all_point,
-                plypath1: polyline,
-                userList: that.data.userList,
-              })
-            } else {
-              wx.showToast({
-                title: '没有定位信息',
-                icon: 'none'
-              })
+          }
+          for (let i = 0; i < app.globalData.userList.length; i++) {
+            if (app.globalData.userList[i]['binding_id'] == _ids) {
+              that.data.userList.push({ user_name: app.globalData.userList[i]['username'], color: colorArr[n] + 'AA' });
             }
+          }
+          n++;
+          if (all_point.length > 0) {
+            that.setData({
+              inPoint: all_point,
+              plypath1: polyline,
+              userList: that.data.userList,
+            })
           } else {
             wx.showToast({
               title: '没有定位信息',
@@ -92,6 +88,7 @@ Page({
         }
       })
     }
+    
   },
   onLoad: function (options) {
     if (this.data.plypath1.length <= 0) {
