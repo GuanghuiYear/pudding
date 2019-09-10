@@ -73,6 +73,8 @@ Page({
       return false;
     }
     app.globalData.userList = this.data.user_info;
+    // app.globalData.userList = [{ binding_id: 190, username: '马云' }, { binding_id: 191, username: '马化腾' }];
+    // this.data.binding_ids = '190,191';
     wx.navigateTo({
       url: '../profile/trace?start_date=' + this.data.select_date + '&start_time=' + (this.data.start_time + ':00') + '&end_date=' + this.data.select_date + '&end_time=' + (this.data.end_time+':59') + '&ids=' + this.data.binding_ids
     })
