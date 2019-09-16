@@ -6,6 +6,7 @@
   </view>
 
   <view style='margin-left:20px; margin-right:20px; margin-top:20px;'>
-    <button class="weui-btn" type="warn" bindtap='logoutTapHandler'>退出登陆</button>
+    <button wx:if='{{!isLogin}}' class="weui-btn" type="primary" bindtap='loginTapHandler'>登陆</button>
+    <button wx:else class="weui-btn" type="warn" bindtap='logoutTapHandler'>退出登陆</button>
   </view>
 </view>

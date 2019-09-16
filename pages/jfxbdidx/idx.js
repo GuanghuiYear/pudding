@@ -32,7 +32,9 @@ Page({
     polyline: [],
     isshowlastgps: true,
     isOpenLastLocation: false,
-    isCloseRail: false
+    isCloseRail: false,
+    isFirstload: true,
+    isArrangeBtn: false,
   },
 
   states: {
@@ -92,6 +94,20 @@ Page({
   
   ctrlPlaceTapHandler: function(evt) {
     let that = this;
+    var pudding = typeof app.globalData.pudding ? app.globalData.pudding : {};
+    if (pudding == undefined || pudding.mobile == undefined || pudding.mobile == null) {
+      wx.showToast({
+        title: '未登录',
+        icon: 'none',
+        duration: 3000,
+        success: function () {
+          // wx.navigateTo({
+          //   url: '/pages/index/index'
+          // })
+        }
+      })
+      return false;
+    }
     if(!this.data.isshowlastgps) {
       that.setData({
         inPoints: [],
@@ -176,38 +192,21 @@ Page({
 
   /* 生命周期函数--监听页面加载 */
   onLoad: function() {
-    this.mapCtx = wx.createMapContext('map')
-    var that = this
-    // layout map control position.
-    var query = wx.createSelectorQuery();
-    query.select('#map').boundingClientRect(function(res) {
-      const destLayout = that.layoutMgControl({
-        width: res.width,
-        height: res.height
-      }, 20, that.data.mgctrlPositions);
-      that.setData({
-        mgctrlPositions: destLayout
-      });
-    }).exec();
-    // update header panel.(user icon, user name, and so on)
-    this.setData({
-      userIcon: app.globalData.userInfo.avatarUrl,
-      nickName: app.globalData.userInfo.nickName
-    })
-    // get mobile current location and update UI
-    wx.getLocation({
-      type: 'gcj02',
-      success: function(res) {
-        app.globalData.location = res
-        app.globalData.longitude = res.longitude;
-        app.globalData.latitude = res.latitude;
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
-          userLocation: res
-        })
-      },
-    })
+    // var pudding = wx.getStorageSync('pudding') || {}
+    var pudding = typeof app.globalData.pudding ? app.globalData.pudding : {};
+    if (pudding == undefined || pudding.mobile == undefined || pudding.mobile == null) {
+      wx.showToast({
+        title: '未登录',
+        icon: 'none',
+        duration: 3000,
+        success: function () {
+          // wx.navigateTo({
+          //   url: '/pages/index/index'
+          // })
+        }
+      })
+      return false;
+    }
   },
 
   regionchangeHandler: function(evt) {
@@ -228,6 +227,20 @@ Page({
   },
 
   loadOrgs: function(succBlock) {
+    var pudding = typeof app.globalData.pudding ? app.globalData.pudding : {};
+    if (pudding == undefined || pudding.mobile == undefined || pudding.mobile == null) {
+      wx.showToast({
+        title: '未登录',
+        icon: 'none',
+        duration: 3000,
+        success: function () {
+          // wx.navigateTo({
+          //   url: '/pages/index/index'
+          // })
+        }
+      })
+      return false;
+    }
     var gd = app.globalData
     var that = this
     var gprequrl = gd.baseUrl + '/users/' + gd.pudding.id + '/organizations'
@@ -269,7 +282,6 @@ Page({
   markerTouchHandler: function(evt) {
     var gb = app.globalData
     for (var i = 0; i < this.data.markers.length; i++) {
-      console.log(this.data.markers[i].userInfo)
       if (this.data.markers[i].userInfo.binding.id === evt.markerId) {
         gb.selPosition = this.data.markers[i].userInfo
         break;
@@ -343,7 +355,6 @@ Page({
   },
 
   showAllPoints: function() {
-    // console.log('info:', this.data.markers)
     this.setData({
       inPoints: this.data.markers
     })
@@ -414,7 +425,59 @@ Page({
   },
   /* 生命周期函数--监听页面显示*/
   onShow: function() {
-    this.init();
+    if (!this.data.isArrangeBtn) {
+      this.mapCtx = wx.createMapContext('map')
+      var that = this
+      // layout map control position.
+      var query = wx.createSelectorQuery();
+      query.select('#map').boundingClientRect(function (res) {
+        const destLayout = that.layoutMgControl({
+          width: res.width,
+          height: res.height
+        }, 20, that.data.mgctrlPositions);
+        that.setData({
+          mgctrlPositions: destLayout
+        });
+      }).exec();
+      // get mobile current location and update UI
+      wx.getLocation({
+        type: 'gcj02',
+        success: function (res) {
+          app.globalData.location = res
+          app.globalData.longitude = res.longitude;
+          app.globalData.latitude = res.latitude;
+          that.setData({
+            latitude: res.latitude,
+            longitude: res.longitude,
+            userLocation: res
+          })
+        },
+      })
+      this.data.isArrangeBtn = true;
+    }
+    if(!this.data.isFirstload) {
+      var pudding = typeof app.globalData.pudding ? app.globalData.pudding : {};
+      if (pudding == undefined || pudding.mobile == undefined || pudding.mobile == null) {
+        wx.showToast({
+          title: '未登录',
+          icon: 'none',
+          duration: 3000,
+          success: function () {
+            // wx.navigateTo({
+            //   url: '/pages/index/index'
+            // })
+          }
+        })
+        return false;
+      }
+      this.setData({
+        userIcon: app.globalData.userInfo.avatarUrl,
+        nickName: app.globalData.userInfo.nickName
+      })
+      this.init();
+    } else {
+      this.data.isFirstload = false;
+    }
   },
   init: function() {
     var that = this;
@@ -437,7 +500,6 @@ Page({
           type: 'gcj02',
           success: function (res) {
             app.globalData.location = res
-            console.log(res)
             that.setData({
               // circles: radius > 0 ? [{
               //   latitude: res.latitude,

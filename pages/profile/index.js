@@ -1,7 +1,7 @@
-
+var app = getApp();
 Page({
   data: {
-
+    isLogin: false
   },
 
   logoutTapHandler:function(evt) {
@@ -15,7 +15,6 @@ Page({
       url: '../../pages/index/index',
     })
   },
-
   onLoad: function () {
     wx.request({
       url: 'http://image.yuanchanxidi.com/aa3d.jpg',
@@ -27,6 +26,23 @@ Page({
       success: function(res){
         console.log(res);
       }
+    })
+  },
+  onShow: function() {
+    var pudding = typeof app.globalData.pudding ? app.globalData.pudding : {};
+    if (pudding != undefined && pudding.mobile != undefined && pudding.mobile != null) {
+      this.setData({
+        isLogin: true
+      });
+    } else {
+      this.setData({
+        isLogin: false
+      });
+    }
+  },
+  loginTapHandler: function() {
+    wx.navigateTo({
+      url: '/pages/index/index',
     })
   }
 })

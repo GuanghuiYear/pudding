@@ -28,7 +28,8 @@ Page({
   onLoad: function() {
     let that = this
     var pudding = wx.getStorageSync('pudding') || {}
-    // console.log('local pudding info:', pudding) // for debug
+    console.log('local pudding info:', pudding) // for debug
+    // return false;
     if (pudding.mobile != undefined && pudding.mobile != null) {
       app.globalData.pudding = pudding
       app.globalData.userInfo = wx.getStorageSync('userInfo')
@@ -276,7 +277,6 @@ Page({
                 objz.avatarUrl = res.userInfo.avatarUrl;
                 objz.nickName = res.userInfo.nickName;
                 app.globalData.userInfo = objz;
-                console.log(objz);
                 wx.setStorageSync('userInfo', objz); //存储userInfo
               },
               fail: function(err) {
