@@ -192,8 +192,7 @@ Page({
 
   /* 生命周期函数--监听页面加载 */
   onLoad: function() {
-    // var pudding = wx.getStorageSync('pudding') || {}
-    var pudding = typeof app.globalData.pudding ? app.globalData.pudding : {};
+    var pudding = wx.getStorageSync('pudding') || {};
     if (pudding == undefined || pudding.mobile == undefined || pudding.mobile == null) {
       wx.showToast({
         title: '未登录',
@@ -206,6 +205,9 @@ Page({
         }
       })
       return false;
+    } else {
+      app.globalData.pudding = pudding
+      app.globalData.userInfo = wx.getStorageSync('userInfo')
     }
   },
 
