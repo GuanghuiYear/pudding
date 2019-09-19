@@ -77,8 +77,6 @@ Page({
           },
           method: 'POST',
           success: function (res) {
-            console.log("verify code request api get response")
-            console.log(res)
             if (res.statusCode >= 200 && res.statusCode < 300 && res.data.code >= 200 && res.data.code < 300) {
               wx.showToast({
                 icon: "none",

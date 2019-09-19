@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/jfxbdidx/idx",
     "pages/index/index",
     "pages/pattern/pattern",
     "pages/manager/personprofile",
-    "pages/jfxbdidx/idx",
     "pages/profile/index",
     "pages/railsetting/setcenter",
     "pages/railsetting/radius",

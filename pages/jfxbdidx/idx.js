@@ -189,7 +189,6 @@ Page({
       url: '../../pages/railsetting/radius',
     });
   },
-
   /* 生命周期函数--监听页面加载 */
   onLoad: function() {
     var pudding = wx.getStorageSync('pudding') || {};
@@ -210,11 +209,9 @@ Page({
       app.globalData.userInfo = wx.getStorageSync('userInfo')
     }
   },
-
   regionchangeHandler: function(evt) {
     console.log("get region change event.", evt);
   },
-
   showCrtLocation: function(evt) {
     var that = this;
     wx.getLocation({
@@ -388,15 +385,16 @@ Page({
   showDevicesMark: function() {
     // return // service has error
     var devs = app.globalData.selGroup.children //children
-    if (!devs) return
     var ms = []
-    for (var i = 0; i < devs.length; i++) {
-      var center = {
-        latitude: devs[i].latitude,
-        longitude: devs[i].longitude
+    if (devs != null && devs.length > 0) {
+      for (var i = 0; i < devs.length; i++) {
+        var center = {
+          latitude: devs[i].latitude,
+          longitude: devs[i].longitude
+        }
+        let mdata = this.getMarkerData(center, devs[i].username, devs[i])
+        ms.push(mdata)
       }
-      let mdata = this.getMarkerData(center, devs[i].username, devs[i])
-      ms.push(mdata)
     }
     this.setData({
       markers: ms
@@ -457,7 +455,7 @@ Page({
       })
       this.data.isArrangeBtn = true;
     }
-    if(!this.data.isFirstload) {
+    // if(!this.data.isFirstload) {
       var pudding = typeof app.globalData.pudding ? app.globalData.pudding : {};
       if (pudding == undefined || pudding.mobile == undefined || pudding.mobile == null) {
         wx.showToast({
@@ -476,17 +474,18 @@ Page({
         userIcon: app.globalData.userInfo.avatarUrl,
         nickName: app.globalData.userInfo.nickName
       })
-      this.init();
-    } else {
-      this.data.isFirstload = false;
-    }
+      this.init(true);
+    // } else {
+    //   this.data.isFirstload = false;
+    // }
   },
-  init: function() {
+  init: function(flag) {
+    let is_refresh = typeof flag ? flag : false;
     var that = this;
     wx.showLoading({
       title: '刷新中',
     });
-    if (!app.globalData.selGroup) {
+    if (!app.globalData.selGroup || is_refresh) {
       this.loadOrgs(function () {
         if (!that.timer) {
           that.startDevLoops()
@@ -606,6 +605,6 @@ Page({
     //   userIcon: app.globalData.userInfo.avatarUrl,
     //   nickName: app.globalData.userInfo.nickName
     // })
-    this.init();
+    this.init(true);
   }
 })
