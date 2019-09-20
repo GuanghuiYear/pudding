@@ -1,7 +1,5 @@
-@import "../../common/lib/weui.wxss"
-
-/* .button-sp-area{
-    margin: 0 auto;
-    padding-top: 15px;
-    width: 60%;
-} */
+.vtitle{margin-top: 200rpx;}
+.avatar{width:200rpx;height:200rpx;box-shadow:0 0 50rpx #f1f1f1;border-radius: 50%;border:1px solid #f1f1f1;}
+.btn{border:none;font-size: 28rpx;width: 40%;height: 70rpx;line-height: 70rpx;}
+.word{margin:50rpx 0 100rpx;font-size: 28rpx;}
+button::after{border:none;}

@@ -1,7 +1,9 @@
 var app = getApp();
 Page({
   data: {
-    isLogin: false
+    isLogin: false,
+    userIcon: '',
+    nickName: ''
   },
 
   logoutTapHandler:function(evt) {
@@ -27,9 +29,11 @@ Page({
         console.log(res);
       }
     })
+    
   },
   onShow: function() {
     var pudding = typeof app.globalData.pudding ? app.globalData.pudding : {};
+    
     if (pudding != undefined && pudding.mobile != undefined && pudding.mobile != null) {
       this.setData({
         isLogin: true
@@ -39,6 +43,10 @@ Page({
         isLogin: false
       });
     }
+    this.setData({
+      userIcon: app.globalData.userInfo.avatarUrl,
+      nickName: app.globalData.userInfo.nickName
+    })
   },
   loginTapHandler: function() {
     wx.navigateTo({
