@@ -2,7 +2,7 @@ var app = getApp();
 Page({
   data: {
     isLogin: false,
-    userIcon: '',
+    userIcon: '/images/avatar.png',
     nickName: ''
   },
 
@@ -43,10 +43,12 @@ Page({
         isLogin: false
       });
     }
-    this.setData({
-      userIcon: app.globalData.userInfo.avatarUrl,
-      nickName: app.globalData.userInfo.nickName
-    })
+    if (app.globalData.userInfo != null) {
+      this.setData({
+        userIcon: app.globalData.userInfo.avatarUrl,
+        nickName: app.globalData.userInfo.nickName
+      })
+    }
   },
   loginTapHandler: function() {
     wx.navigateTo({
